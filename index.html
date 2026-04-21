@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroIQ — Rebuild Your Brain. While You Sleep.</title>
+<meta name="description" content="NeuroIQ combines binaural entrainment, subliminal audio delivery, and your personal dataset — running while you sleep, timed to the brain's natural memory consolidation windows.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYY6K1LES"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2RYY6K1LES');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night:     #050A14;
+  --deep:      #070D1A;
+  --card:      #0D1829;
+  --navy:      #0C447C;
+  --synapse:   #185FA5;
+  --signal:    #378ADD;
+  --sky:       #85B7EB;
+  --mist:      #E6F1FB;
+  --spindle:   #534AB7;
+  --spindle-l: #AFA9EC;
+  --recovery:  #1D9E75;
+  --recover-l: #9FE1CB;
+  --gold:      #F5C842;
+  --white:     #FFFFFF;
+  --f-display: 'Outfit', sans-serif;
+  --f-body:    'DM Sans', sans-serif;
+  --f-mono:    'JetBrains Mono', monospace;
+  --max:       1120px;
+  --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--f-body); background: var(--night); color: var(--mist); line-height: 1.6; overflow-x: hidden; }
+img, svg { display: block; }
+a { color: inherit; text-decoration: none; }
+.container { max-width: var(--max); margin: 0 auto; padding: 0 40px; }
+.section-pad { padding: 120px 0; }
+.label { font-family: var(--f-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--synapse); }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+@keyframes sweep { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes ripple { from { width: 60px; height: 60px; opacity: 1; } to { width: 160px; height: 160px; opacity: 0; } }
+@keyframes pulse-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 40px; display: flex; align-items: center; justify-content: space-between; transition: background 0.4s ease, border-color 0.4s ease; border-bottom: 1px solid transparent; }
+nav.scrolled { background: rgba(5,10,20,0.92); backdrop-filter: blur(20px); border-color: rgba(255,255,255,0.06); }
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo-text { font-family: var(--f-display); font-size: 20px; font-weight: 200; color: var(--mist); letter-spacing: -0.5px; }
+.nav-logo-text strong { font-weight: 600; color: var(--signal); }
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a { font-family: var(--f-display); font-size: 14px; color: var(--sky); transition: color 0.2s; }
+.nav-links a:hover { color: var(--mist); }
+.nav-cta { background: var(--recovery); color: var(--white); font-family: var(--f-display); font-size: 13px; font-weight: 600; padding: 10px 22px; border-radius: 100px; transition: background 0.2s, transform 0.2s; cursor: pointer; border: none; }
+.nav-cta:hover { background: #23b887; transform: translateY(-1px); }
+
+/* HERO */
+#hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding-top: 100px; }
+#hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(1px 1px at 10% 20%, rgba(133,183,235,0.4) 0%, transparent 100%), radial-gradient(1px 1px at 25% 60%, rgba(133,183,235,0.2) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 40% 15%, rgba(230,241,251,0.3) 0%, transparent 100%), radial-gradient(1px 1px at 60% 80%, rgba(133,183,235,0.25) 0%, transparent 100%), radial-gradient(1px 1px at 75% 35%, rgba(230,241,251,0.2) 0%, transparent 100%), radial-gradient(1.5px 1.5px at 85% 70%, rgba(133,183,235,0.3) 0%, transparent 100%), radial-gradient(1px 1px at 15% 85%, rgba(133,183,235,0.2) 0%, transparent 100%); pointer-events: none; }
+#hero::after { content: ''; position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 500px; background: radial-gradient(ellipse, rgba(12,68,124,0.25) 0%, transparent 70%); pointer-events: none; }
+.hero-inner { position: relative; z-index: 2; padding: 0 40px; max-width: var(--max); margin: 0 auto; width: 100%; }
+.hero-label { margin-bottom: 28px; animation: fadeUp 1s var(--ease) both; }
+.hero-headline { font-family: var(--f-display); font-size: clamp(60px, 8vw, 108px); font-weight: 200; color: var(--mist); letter-spacing: -4px; line-height: 0.95; margin-bottom: 28px; animation: fadeUp 1s var(--ease) 0.1s both; }
+.hero-headline .accent { font-weight: 600; color: var(--signal); display: block; }
+.hero-sub { font-family: var(--f-display); font-size: clamp(16px, 2vw, 20px); font-weight: 300; color: var(--sky); max-width: 560px; line-height: 1.6; margin-bottom: 48px; animation: fadeUp 1s var(--ease) 0.2s both; }
+.waveform-strip { width: 100%; overflow: hidden; margin-bottom: 52px; animation: fadeUp 1s var(--ease) 0.3s both; }
+.waveform-track { display: flex; width: 200%; animation: sweep 12s linear infinite; }
+.hero-ctas { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; animation: fadeUp 1s var(--ease) 0.4s both; }
+.btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--recovery); color: var(--white); font-family: var(--f-display); font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: 100px; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer; border: none; }
+.btn-primary:hover { background: #23b887; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(29,158,117,0.35); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--mist); font-family: var(--f-display); font-size: 15px; font-weight: 400; padding: 13px 28px; border-radius: 100px; border: 0.5px solid rgba(133,183,235,0.3); transition: border-color 0.2s, background 0.2s, transform 0.2s; cursor: pointer; }
+.btn-secondary:hover { border-color: var(--sky); background: rgba(133,183,235,0.06); transform: translateY(-2px); }
+.scroll-indicator { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; animation: float 2s ease-in-out infinite; opacity: 0.4; }
+.scroll-indicator span { font-family: var(--f-mono); font-size: 9px; letter-spacing: 2px; color: var(--synapse); text-transform: uppercase; }
+
+/* STATS */
+.stats-strip { background: var(--card); border-top: 0.5px solid rgba(255,255,255,0.06); border-bottom: 0.5px solid rgba(255,255,255,0.06); padding: 36px 0; }
+.stats-grid { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.stat-item { text-align: center; flex: 1; }
+.stat-item + .stat-item { border-left: 0.5px solid rgba(255,255,255,0.06); }
+.stat-num { font-family: var(--f-display); font-size: 42px; font-weight: 200; color: var(--signal); letter-spacing: -2px; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 12px; color: var(--sky); line-height: 1.4; max-width: 180px; margin: 0 auto; }
+
+/* PROBLEM */
+#problem { background: var(--deep); }
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.problem-text h2 { font-family: var(--f-display); font-size: 48px; font-weight: 200; color: var(--mist); letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; }
+.problem-text h2 em { font-style: normal; font-weight: 600; color: var(--signal); }
+.problem-text p { font-size: 15px; color: var(--sky); line-height: 1.75; margin-bottom: 16px; }
+.problem-cards { display: flex; flex-direction: column; gap: 12px; }
+.problem-card { background: var(--card); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; transition: border-color 0.2s, transform 0.2s; }
+.problem-card:hover { border-color: rgba(55,138,221,0.25); transform: translateX(4px); }
+.problem-card-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.problem-card h4 { font-family: var(--f-display); font-size: 14px; font-weight: 500; color: var(--mist); margin-bottom: 4px; }
+.problem-card p { font-size: 12px; color: var(--sky); line-height: 1.5; margin: 0; }
+
+/* HOW */
+#how { background: var(--night); }
+.how-header { text-align: center; margin-bottom: 72px; }
+.how-header h2 { font-family: var(--f-display); font-size: 56px; font-weight: 200; color: var(--mist); letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
+.how-header p { font-size: 16px; color: var(--sky); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+.how-layers { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: center; margin-bottom: 64px; }
+.how-layer { background: var(--card); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 28px 24px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+.how-layer:hover { border-color: rgba(55,138,221,0.3); transform: translateY(-4px); }
+.how-layer-num { font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px; color: var(--synapse); margin-bottom: 16px; text-transform: uppercase; }
+.how-layer-vis { height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.how-layer h3 { font-family: var(--f-display); font-size: 16px; font-weight: 500; color: var(--mist); margin-bottom: 8px; }
+.how-layer p { font-size: 12px; color: var(--sky); line-height: 1.6; }
+.how-arrow { display: flex; align-items: center; justify-content: center; padding: 0 16px; flex-direction: column; gap: 6px; }
+.how-arrow-label { font-family: var(--f-mono); font-size: 8px; letter-spacing: 1.5px; color: var(--spindle); text-transform: uppercase; text-align: center; }
+.how-pause { border-color: rgba(83,74,183,0.4) !important; background: rgba(83,74,183,0.06) !important; }
+.how-pause:hover { border-color: rgba(83,74,183,0.7) !important; }
+.hz-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(12,68,124,0.4); border: 0.5px solid rgba(55,138,221,0.25); border-radius: 100px; padding: 4px 10px 4px 6px; font-family: var(--f-mono); font-size: 11px; color: var(--sky); }
+.hz-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--signal); animation: blink 2s ease-in-out infinite; }
+
+/* AUDIENCE */
+#audience { background: var(--deep); }
+.section-header { margin-bottom: 56px; }
+.section-header h2 { font-family: var(--f-display); font-size: 52px; font-weight: 200; color: var(--mist); letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
+.section-header p { font-size: 16px; color: var(--sky); max-width: 560px; line-height: 1.7; }
+.audience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.audience-card { background: var(--card); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 32px; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+.audience-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.audience-card.blue::before { background: linear-gradient(90deg, var(--signal), transparent); }
+.audience-card.green::before { background: linear-gradient(90deg, var(--recovery), transparent); }
+.audience-card.purple::before { background: linear-gradient(90deg, var(--spindle), transparent); }
+.audience-card.teal::before { background: linear-gradient(90deg, #0F9E8A, transparent); }
+.audience-card:hover { border-color: rgba(55,138,221,0.2); transform: translateY(-4px); }
+.audience-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.audience-card h3 { font-family: var(--f-display); font-size: 20px; font-weight: 500; color: var(--mist); margin-bottom: 10px; }
+.audience-card p { font-size: 13px; color: var(--sky); line-height: 1.7; margin-bottom: 16px; }
+.audience-stat { font-family: var(--f-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--synapse); text-transform: uppercase; padding-top: 14px; border-top: 0.5px solid rgba(255,255,255,0.06); }
+
+/* SCIENCE */
+#science { background: var(--night); }
+.science-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.science-text h2 { font-family: var(--f-display); font-size: 48px; font-weight: 200; color: var(--mist); letter-spacing: -2px; line-height: 1.1; margin-bottom: 24px; }
+.science-text p { font-size: 14px; color: var(--sky); line-height: 1.8; margin-bottom: 16px; }
+.science-facts { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.science-fact { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; background: var(--card); border-radius: 10px; border: 0.5px solid rgba(255,255,255,0.06); }
+.science-fact-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.science-fact p { font-size: 12px; color: var(--sky); line-height: 1.6; margin: 0; }
+.science-fact p strong { color: var(--mist); font-weight: 500; }
+
+/* FEATURES */
+#features { background: var(--deep); }
+.features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.feature-card { background: var(--card); border: 0.5px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+.feature-card:hover { border-color: rgba(55,138,221,0.25); transform: translateY(-3px); }
+.feature-visual { height: 180px; display: flex; align-items: center; justify-content: center; background: linear-gradient(180deg, rgba(12,68,124,0.2) 0%, transparent 100%); border-bottom: 0.5px solid rgba(255,255,255,0.05); padding: 24px; }
+.feature-body { padding: 24px 26px; }
+.feature-num { font-family: var(--f-mono); font-size: 10px; letter-spacing: 2px; color: var(--synapse); text-transform: uppercase; margin-bottom: 8px; }
+.feature-body h3 { font-family: var(--f-display); font-size: 18px; font-weight: 500; color: var(--mist); margin-bottom: 8px; }
+.feature-body p { font-size: 13px; color: var(--sky); line-height: 1.65; }
+
+/* STORY */
+#story { background: var(--night); position: relative; overflow: hidden; }
+#story::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(83,74,183,0.08) 0%, transparent 60%); pointer-events: none; }
+.story-inner { position: relative; z-index: 1; max-width: 720px; }
+.story-quote { font-family: var(--f-display); font-size: clamp(28px, 4vw, 44px); font-weight: 200; color: var(--mist); letter-spacing: -1.5px; line-height: 1.25; margin-bottom: 32px; }
+.story-quote em { font-style: normal; color: var(--spindle-l); }
+.story-body { font-size: 15px; color: var(--sky); line-height: 1.8; margin-bottom: 20px; }
+.story-attr { display: flex; align-items: center; gap: 16px; margin-top: 32px; }
+.story-attr-name { font-family: var(--f-display); font-size: 14px; font-weight: 500; color: var(--mist); }
+.story-attr-title { font-family: var(--f-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--synapse); text-transform: uppercase; margin-top: 2px; }
+
+/* ================================================================
+   FOUNDER'S CIRCLE — THE NEW CTA SECTION
+================================================================ */
+#founders {
+  background: linear-gradient(180deg, var(--deep) 0%, #030810 100%);
+  position: relative;
+  overflow: hidden;
+}
+#founders::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(83,74,183,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.founders-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.founders-text h2 {
+  font-family: var(--f-display);
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 200;
+  color: var(--mist);
+  letter-spacing: -2.5px;
+  line-height: 1.0;
+  margin-bottom: 20px;
+}
+.founders-text h2 em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--gold);
+}
+.founders-text p {
+  font-size: 15px;
+  color: var(--sky);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.founders-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.founders-perk {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--sky);
+}
+.perk-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* THE FORM */
+.founders-form-wrap {
+  background: rgba(13,24,41,0.8);
+  border: 0.5px solid rgba(245,200,66,0.2);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+  position: relative;
+}
+.founders-form-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(245,200,66,0.2), transparent);
+  border-radius: 20px 20px 0 0;
+}
+.form-title {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--mist);
+  margin-bottom: 6px;
+}
+.form-sub {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.form-field {
+  margin-bottom: 14px;
+}
+.form-field label {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--synapse);
+  margin-bottom: 6px;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  background: rgba(5,10,20,0.7);
+  border: 0.5px solid rgba(55,138,221,0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: var(--f-body);
+  font-size: 14px;
+  color: var(--mist);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: rgba(133,183,235,0.3); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: rgba(245,200,66,0.5);
+  box-shadow: 0 0 0 3px rgba(245,200,66,0.08);
+}
+.form-field select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2385B7EB' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px; }
+.form-field select option { background: #0D1829; color: var(--mist); }
+.form-field textarea { resize: none; height: 80px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* Honeypot - hidden from humans */
+.ohnohoney { opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1; }
+.form-submit {
+  width: 100%;
+  background: var(--gold);
+  color: #050A14;
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 15px 28px;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  margin-top: 8px;
+  letter-spacing: 0.3px;
+}
+.form-submit:hover {
+  background: #f7d350;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(245,200,66,0.3);
+}
+.form-privacy {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(133,183,235,0.3);
+  text-align: center;
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 32px 0;
+}
+.form-success-icon {
+  width: 56px; height: 56px;
+  background: rgba(29,158,117,0.15);
+  border: 0.5px solid rgba(29,158,117,0.4);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.form-success h3 {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--mist);
+  margin-bottom: 8px;
+}
+.form-success p {
+  font-size: 13px;
+  color: var(--sky);
+  line-height: 1.6;
+}
+
+/* FOUNDER COUNTER */
+.founder-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: rgba(245,200,66,0.06);
+  border: 0.5px solid rgba(245,200,66,0.15);
+  border-radius: 10px;
+}
+.counter-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: blink 2s ease-in-out infinite; flex-shrink: 0; }
+.counter-text { font-family: var(--f-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; }
+
+/* FOOTER */
+footer { background: var(--night); border-top: 0.5px solid rgba(255,255,255,0.06); padding: 56px 40px; }
+.footer-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
+.footer-brand p { font-size: 13px; color: var(--sky); line-height: 1.7; margin-top: 14px; max-width: 260px; opacity: 0.7; }
+.footer-col h4 { font-family: var(--f-mono); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--synapse); margin-bottom: 16px; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 8px; }
+.footer-col a { font-size: 13px; color: var(--sky); opacity: 0.6; transition: opacity 0.2s; }
+.footer-col a:hover { opacity: 1; }
+.footer-bottom { max-width: var(--max); margin: 40px auto 0; padding-top: 24px; border-top: 0.5px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-family: var(--f-mono); font-size: 10px; color: rgba(133,183,235,0.25); letter-spacing: 1px; }
+
+@media (max-width: 900px) {
+  .problem-grid, .science-grid, .founders-inner { grid-template-columns: 1fr; }
+  .how-layers { grid-template-columns: 1fr; }
+  .how-arrow { display: none; }
+  .audience-grid, .features-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .stats-grid { flex-wrap: wrap; }
+  .stat-item + .stat-item { border-left: none; border-top: 0.5px solid rgba(255,255,255,0.06); }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 20px; }
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .hero-inner { padding: 0 20px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .founders-form-wrap { padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <svg viewBox="0 0 32 32" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="5.5" fill="none" stroke="#378ADD" stroke-width="1"/>
+      <circle cx="16" cy="16" r="2.5" fill="#85B7EB"/>
+      <line x1="16" y1="4"  x2="16" y2="10" stroke="#185FA5" stroke-width=".8"/>
+      <line x1="16" y1="22" x2="16" y2="28" stroke="#185FA5" stroke-width=".8"/>
+      <line x1="5"  y1="8"  x2="11" y2="13" stroke="#185FA5" stroke-width=".8"/>
+      <line x1="27" y1="8"  x2="21" y2="13" stroke="#378ADD" stroke-width=".8"/>
+      <line x1="5"  y1="24" x2="11" y2="19" stroke="#185FA5" stroke-width=".8"/>
+      <line x1="27" y1="24" x2="21" y2="19" stroke="#378ADD" stroke-width=".8"/>
+      <circle cx="16" cy="3"  r="2.5" fill="#0C447C"/>
+      <circle cx="16" cy="29" r="2.5" fill="#0C447C"/>
+      <circle cx="3"  cy="8"  r="2.5" fill="#0C447C"/>
+      <circle cx="29" cy="8"  r="3"   fill="#185FA5"/>
+      <circle cx="3"  cy="24" r="2.5" fill="#0C447C"/>
+      <circle cx="29" cy="24" r="3"   fill="#185FA5"/>
+    </svg>
+    <span class="nav-logo-text">Neuro<strong>IQ</strong></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#science">The science</a></li>
+    <li><a href="#audience">Who it's for</a></li>
+    <li><a href="#story">Our story</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('founders').scrollIntoView({behavior:'smooth'})">Request Access</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-label label">Neural Recovery Platform</div>
+    <h1 class="hero-headline">
+      <span>Your brain</span>
+      <span>heals at night.</span>
+      <span class="accent">Help it learn too.</span>
+    </h1>
+    <p class="hero-sub">NeuroIQ combines binaural entrainment, subliminal audio delivery, and your personal dataset — running while you sleep, timed to the brain's natural memory consolidation windows.</p>
+
+    <div class="waveform-strip">
+      <div class="waveform-track">
+        <svg viewBox="0 0 1440 48" width="1440" height="48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="24" x2="1440" y2="24" stroke="rgba(24,95,165,0.15)" stroke-width="0.5"/>
+          <path d="M0,24 Q18,8 36,24 Q54,40 72,24 Q90,8 108,24 Q126,40 144,24 Q162,8 180,24 Q198,40 216,24 Q234,8 252,24 Q270,40 288,24" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M310,24 L318,24 L322,14 L326,34 L330,8 L334,40 L338,12 L342,36 L346,24 L360,24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M380,24 Q398,10 416,24 Q434,38 452,24 Q470,10 488,24 Q506,38 524,24 Q542,10 560,24 Q578,38 596,24 Q614,10 632,24 Q650,38 668,24" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M700,24 L708,24 L712,16 L716,32 L720,10 L724,38 L728,14 L732,34 L736,24 L750,24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M770,24 Q788,9 806,24 Q824,39 842,24 Q860,9 878,24 Q896,39 914,24 Q932,9 950,24 Q968,39 986,24 Q1004,9 1022,24 Q1040,39 1058,24" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M1090,24 L1098,24 L1102,15 L1106,33 L1110,9 L1114,39 L1118,13 L1122,35 L1126,24 L1140,24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1160,24 Q1178,8 1196,24 Q1214,40 1232,24 Q1250,8 1268,24 Q1286,40 1304,24 Q1322,8 1340,24 Q1358,40 1376,24 Q1394,8 1412,24 Q1430,40 1440,34" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <text x="132" y="46" font-family="monospace" font-size="7" fill="rgba(24,95,165,0.5)" letter-spacing="1">BINAURAL CARRIER</text>
+          <text x="316" y="10" font-family="monospace" font-size="7" fill="rgba(83,74,183,0.7)" letter-spacing="1">PAUSE · ENCODE</text>
+          <text x="490" y="46" font-family="monospace" font-size="7" fill="rgba(24,95,165,0.5)" letter-spacing="1">DATA PACKET</text>
+        </svg>
+        <svg viewBox="0 0 1440 48" width="1440" height="48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="24" x2="1440" y2="24" stroke="rgba(24,95,165,0.15)" stroke-width="0.5"/>
+          <path d="M0,24 Q18,8 36,24 Q54,40 72,24 Q90,8 108,24 Q126,40 144,24 Q162,8 180,24 Q198,40 216,24 Q234,8 252,24 Q270,40 288,24" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M310,24 L318,24 L322,14 L326,34 L330,8 L334,40 L338,12 L342,36 L346,24 L360,24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M380,24 Q398,10 416,24 Q434,38 452,24 Q470,10 488,24 Q506,38 524,24 Q542,10 560,24 Q578,38 596,24 Q614,10 632,24 Q650,38 668,24" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M700,24 L708,24 L712,16 L716,32 L720,10 L724,38 L728,14 L732,34 L736,24 L750,24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M770,24 Q788,9 806,24 Q824,39 842,24 Q860,9 878,24 Q896,39 914,24 Q932,9 950,24 Q968,39 986,24 Q1004,9 1022,24 Q1040,39 1058,24" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M1090,24 L1098,24 L1102,15 L1106,33 L1110,9 L1114,39 L1118,13 L1122,35 L1126,24 L1140,24" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1160,24 Q1178,8 1196,24 Q1214,40 1232,24 Q1250,8 1268,24 Q1286,40 1304,24 Q1322,8 1340,24 Q1358,40 1376,24 Q1394,8 1412,24 Q1430,40 1440,34" fill="none" stroke="rgba(55,138,221,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="hero-ctas">
+      <button class="btn-secondary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
+        How it works
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 4v12M4 12l4 4 4-4" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal"><div class="stat-num">3.8M</div><div class="stat-label">traumatic brain injuries occur in the US every year</div></div>
+      <div class="stat-item reveal reveal-delay-1"><div class="stat-num">15%</div><div class="stat-label">of TBI patients experience long-term cognitive impairment</div></div>
+      <div class="stat-item reveal reveal-delay-2"><div class="stat-num">0</div><div class="stat-label">sleep apps were built specifically for neurological recovery</div></div>
+      <div class="stat-item reveal reveal-delay-3"><div class="stat-num" style="color:var(--recovery);">1st</div><div class="stat-label">NeuroIQ is the first platform designed for this population</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem" class="section-pad">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="problem-text reveal">
+        <div class="label" style="margin-bottom:16px;">The Gap</div>
+        <h2>The wellness industry forgot the people who <em>actually need it.</em></h2>
+        <p>Millions of people live with the long-term effects of TBI, concussion, or brain injury. They struggle with retention, comprehension, and focus every day. And every sleep app they find was built for people who are already healthy.</p>
+        <p>NeuroIQ was built for everyone else.</p>
+      </div>
+      <div class="problem-cards reveal reveal-delay-2">
+        <div class="problem-card">
+          <div class="problem-card-icon" style="background:rgba(55,138,221,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          </div>
+          <div><h4>Every sleep app is built for the healthy</h4><p>Calm, Headspace, and competitors assume a healthy brain. None account for damaged neural pathways, impaired consolidation, or cognitive deficits.</p></div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-icon" style="background:rgba(83,74,183,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AFA9EC" stroke-width="1.5" stroke-linecap="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          </div>
+          <div><h4>You can't choose what to learn</h4><p>Generic audio content means generic results. NeuroIQ lets you define your own dataset — the specific knowledge you need to rebuild and retain.</p></div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-icon" style="background:rgba(29,158,117,0.1);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div><h4>The brain's repair window is wasted</h4><p>Your brain does its most powerful memory consolidation during NREM sleep. Nothing currently uses this window for deliberate cognitive rebuilding.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="section-pad">
+  <div class="container">
+    <div class="how-header reveal">
+      <div class="label" style="margin-bottom:14px;">The mechanism</div>
+      <h2>Three layers.<br>One night's sleep.</h2>
+      <p>While every other app puts you to sleep, NeuroIQ puts your brain to work — using three precisely timed layers that stack during the same session.</p>
+    </div>
+    <div class="how-layers">
+      <div class="how-layer reveal">
+        <div class="how-layer-num">Layer 01</div>
+        <div class="how-layer-vis">
+          <svg viewBox="0 0 180 48" width="160" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,24 Q15,6 30,24 Q45,42 60,24 Q75,6 90,24 Q105,42 120,24 Q135,6 150,24 Q165,42 180,24" fill="none" stroke="#185FA5" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M5,24 Q20,10 35,24 Q50,38 65,24 Q80,10 95,24 Q110,38 125,24 Q140,10 155,24 Q170,38 175,28" fill="none" stroke="#378ADD" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="hz-badge" style="margin:0 auto 14px;"><div class="hz-dot"></div>User-selected Hz</div>
+        <h3>Binaural Entrainment</h3>
+        <p>Two slightly different frequencies — one per ear — entrain your brain to the target state. You choose delta, theta, alpha, or gamma. The neural window opens.</p>
+      </div>
+      <div class="how-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="how-arrow-label">triggers</div>
+      </div>
+      <div class="how-layer how-pause reveal reveal-delay-1">
+        <div class="how-layer-num" style="color:var(--spindle-l);">The Pause</div>
+        <div class="how-layer-vis">
+          <svg viewBox="0 0 180 48" width="160" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="24" x2="60" y2="24" stroke="rgba(83,74,183,0.3)" stroke-width="0.8"/>
+            <path d="M62,24 L70,24 L74,12 L78,36 L82,6 L86,42 L90,10 L94,38 L98,24 L108,24" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="110" y1="24" x2="180" y2="24" stroke="rgba(83,74,183,0.3)" stroke-width="0.8"/>
+          </svg>
+        </div>
+        <div style="display:flex;justify-content:center;margin-bottom:14px;"><span style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:var(--spindle-l);background:rgba(83,74,183,0.1);padding:3px 10px;border-radius:20px;border:0.5px solid rgba(83,74,183,0.3);">SLEEP SPINDLE</span></div>
+        <h3 style="color:var(--spindle-l);">The Pause Encodes</h3>
+        <p>The sleep spindle is the pause between data packets. This interval is when your hippocampus encodes what it just received. The pause is where you learn.</p>
+      </div>
+      <div class="how-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="how-arrow-label">encodes</div>
+      </div>
+      <div class="how-layer reveal reveal-delay-2">
+        <div class="how-layer-num">Layer 03</div>
+        <div class="how-layer-vis">
+          <svg viewBox="0 0 80 80" width="60" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="14" fill="none" stroke="#1D9E75" stroke-width="1"/>
+            <circle cx="40" cy="40" r="6" fill="none" stroke="#9FE1CB" stroke-width="0.8"/>
+            <circle cx="40" cy="40" r="2.5" fill="#9FE1CB"/>
+            <line x1="40" y1="14" x2="40" y2="26" stroke="#1D9E75" stroke-width=".7"/>
+            <line x1="40" y1="54" x2="40" y2="66" stroke="#1D9E75" stroke-width=".7"/>
+            <line x1="15" y1="24" x2="29" y2="33" stroke="#1D9E75" stroke-width=".7"/>
+            <line x1="65" y1="24" x2="51" y2="33" stroke="#9FE1CB" stroke-width=".7"/>
+            <line x1="15" y1="56" x2="29" y2="47" stroke="#1D9E75" stroke-width=".7"/>
+            <line x1="65" y1="56" x2="51" y2="47" stroke="#9FE1CB" stroke-width=".7"/>
+            <circle cx="40" cy="11" r="4" fill="#085041"/><circle cx="40" cy="69" r="4" fill="#085041"/>
+            <circle cx="12" cy="21" r="4" fill="#085041"/><circle cx="68" cy="21" r="4.5" fill="#1D9E75"/>
+            <circle cx="12" cy="59" r="4" fill="#085041"/><circle cx="68" cy="59" r="4.5" fill="#1D9E75"/>
+          </svg>
+        </div>
+        <div style="display:flex;justify-content:center;margin-bottom:14px;"><span style="font-family:var(--f-mono);font-size:9px;letter-spacing:2px;color:var(--recover-l);background:rgba(29,158,117,0.1);padding:3px 10px;border-radius:20px;border:0.5px solid rgba(29,158,117,0.3);">YOUR CONTENT</span></div>
+        <h3 style="color:var(--recover-l);">Your Dataset. Retained.</h3>
+        <p>Notes, documents, transcripts, study materials — any content you define. Delivered subliminally, pass after pass. Wake up knowing more.</p>
+      </div>
+    </div>
+
+    <!-- Frequency selector -->
+    <div class="reveal" style="background:var(--card);border:0.5px solid rgba(255,255,255,0.07);border-radius:16px;padding:32px;display:flex;gap:40px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div class="label" style="margin-bottom:10px;">Choose your frequency</div>
+        <p style="font-size:13px;color:var(--sky);line-height:1.6;max-width:320px;">Unlike apps that lock you into one mode, NeuroIQ lets you select the exact brainwave frequency that matches your recovery goal.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div style="text-align:center;padding:16px 20px;background:rgba(12,68,124,0.15);border-radius:10px;border:0.5px solid rgba(55,138,221,0.15);">
+          <div style="font-family:var(--f-mono);font-size:20px;color:var(--signal);">δ</div>
+          <div style="font-family:var(--f-mono);font-size:9px;color:var(--synapse);letter-spacing:1px;margin-top:4px;">0.5–4 Hz</div>
+          <div style="font-size:11px;color:var(--sky);margin-top:4px;">Deep Recovery</div>
+        </div>
+        <div style="text-align:center;padding:16px 20px;background:rgba(83,74,183,0.2);border-radius:10px;border:1.5px solid rgba(83,74,183,0.45);">
+          <div style="font-family:var(--f-mono);font-size:20px;color:var(--spindle-l);">θ</div>
+          <div style="font-family:var(--f-mono);font-size:9px;color:var(--spindle-l);letter-spacing:1px;margin-top:4px;">4–8 Hz</div>
+          <div style="font-size:11px;color:var(--spindle-l);margin-top:4px;">Memory</div>
+        </div>
+        <div style="text-align:center;padding:16px 20px;background:rgba(12,68,124,0.15);border-radius:10px;border:0.5px solid rgba(55,138,221,0.15);">
+          <div style="font-family:var(--f-mono);font-size:20px;color:var(--sky);">α</div>
+          <div style="font-family:var(--f-mono);font-size:9px;color:var(--synapse);letter-spacing:1px;margin-top:4px;">8–12 Hz</div>
+          <div style="font-size:11px;color:var(--sky);margin-top:4px;">Light Encode</div>
+        </div>
+        <div style="text-align:center;padding:16px 20px;background:rgba(12,68,124,0.15);border-radius:10px;border:0.5px solid rgba(55,138,221,0.15);">
+          <div style="font-family:var(--f-mono);font-size:20px;color:var(--sky);">γ</div>
+          <div style="font-family:var(--f-mono);font-size:9px;color:var(--synapse);letter-spacing:1px;margin-top:4px;">30–100 Hz</div>
+          <div style="font-size:11px;color:var(--sky);margin-top:4px;">Cognition</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section id="audience" class="section-pad">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="label" style="margin-bottom:14px;">Who it's for</div>
+      <h2>Built for brains that have been through something.</h2>
+      <p>NeuroIQ was designed for people whose cognitive challenges are real, documented, and underserved by every other product on the market.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card blue reveal">
+        <div class="audience-icon" style="background:rgba(55,138,221,0.1);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Athletes &amp; Concussion Survivors</h3>
+        <p>Every impact sport carries concussion risk. Repeated head trauma accumulates. NeuroIQ is built for the athlete who wants to protect and rebuild their cognitive edge — not just manage symptoms.</p>
+        <div class="audience-stat">3.8M sports-related TBIs annually in the US</div>
+      </div>
+      <div class="audience-card green reveal reveal-delay-1">
+        <div class="audience-icon" style="background:rgba(29,158,117,0.1);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Veterans with TBI</h3>
+        <p>Blast-related TBI affects hundreds of thousands of veterans. Cognitive rehabilitation options are limited, expensive, and often inaccessible. NeuroIQ runs every night, at home, on any device.</p>
+        <div class="audience-stat">400,000+ veterans living with TBI</div>
+      </div>
+      <div class="audience-card purple reveal reveal-delay-2">
+        <div class="audience-icon" style="background:rgba(83,74,183,0.1);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#AFA9EC" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Accident &amp; Injury Survivors</h3>
+        <p>A car accident, a fall, a stroke — brain injury doesn't discriminate. For anyone navigating post-injury cognitive decline, NeuroIQ offers a nightly tool that actively works toward rebuilding what was lost.</p>
+        <div class="audience-stat">795,000 strokes occur in the US each year</div>
+      </div>
+      <div class="audience-card teal reveal reveal-delay-3">
+        <div class="audience-icon" style="background:rgba(15,158,138,0.1);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0F9E8A" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>Cognitive Performance Professionals</h3>
+        <p>Executives, researchers, and high-performance professionals who need to absorb large volumes of information. NeuroIQ turns idle sleep hours into a learning advantage.</p>
+        <div class="audience-stat">Used nightly as part of peak performance protocol</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section id="science" class="section-pad">
+  <div class="container">
+    <div class="science-grid">
+      <div class="science-text reveal">
+        <div class="label" style="margin-bottom:16px;">The neuroscience</div>
+        <h2>Your brain wasn't designed to stop learning at bedtime.</h2>
+        <p>During NREM sleep, the hippocampus replays memories and transfers them to the neocortex for long-term storage. Sleep spindles — the exact waveform in our logo — are the EEG signature of this process happening in real time.</p>
+        <p>NeuroIQ's inter-stimulus intervals are precisely calibrated to these natural encoding windows. Data delivers. Spindle fires. You encode. Repeat — hundreds of times a night.</p>
+        <div class="science-facts">
+          <div class="science-fact"><div class="science-fact-dot" style="background:var(--signal);"></div><p><strong>Sleep spindles (12–15 Hz)</strong> are the brain's memory consolidation signature. They appear in NREM Stage 2 and directly correlate with next-day recall.</p></div>
+          <div class="science-fact"><div class="science-fact-dot" style="background:var(--spindle);"></div><p><strong>Inter-stimulus intervals (ISI)</strong> — the deliberate pauses between data packets — allow the hippocampus to process each unit before the next arrives.</p></div>
+          <div class="science-fact"><div class="science-fact-dot" style="background:var(--recovery);"></div><p><strong>Neuroplasticity during sleep</strong> is when the brain physically forms new synaptic connections. NeuroIQ targets this window with user-defined content.</p></div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:var(--card);border:0.5px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;">
+          <div class="label" style="margin-bottom:18px;">Sleep spindle — what our logo depicts</div>
+          <svg viewBox="0 0 400 80" width="100%" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="40" x2="400" y2="40" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+            <path d="M0,40 L60,40 L68,34 L76,46 L84,28 L92,52 L100,22 L108,58 L114,24 L120,56 L126,28 L132,52 L138,36 L146,44 L152,40 L240,40" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="4" y="72" font-family="monospace" font-size="7" fill="rgba(133,183,235,0.4)">FLAT</text>
+            <text x="66" y="72" font-family="monospace" font-size="7" fill="rgba(133,183,235,0.4)">WAXING</text>
+            <text x="96" y="72" font-family="monospace" font-size="7" fill="rgba(83,74,183,0.7)">PEAK</text>
+            <text x="128" y="72" font-family="monospace" font-size="7" fill="rgba(133,183,235,0.4)">WANING</text>
+            <text x="158" y="72" font-family="monospace" font-size="7" fill="rgba(29,158,117,0.6)">ENCODED</text>
+          </svg>
+        </div>
+        <div style="background:var(--card);border:0.5px solid rgba(255,255,255,0.07);border-radius:16px;padding:24px;">
+          <div class="label" style="margin-bottom:16px;">Example session output</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+            <div style="text-align:center;padding:14px;background:rgba(5,10,20,0.5);border-radius:8px;"><div style="font-family:var(--f-mono);font-size:22px;font-weight:300;color:var(--signal);">7.5<span style="font-size:11px;"> Hz</span></div><div style="font-family:var(--f-mono);font-size:8.5px;color:var(--synapse);letter-spacing:1px;margin-top:3px;text-transform:uppercase;">Theta</div></div>
+            <div style="text-align:center;padding:14px;background:rgba(5,10,20,0.5);border-radius:8px;"><div style="font-family:var(--f-mono);font-size:22px;font-weight:300;color:var(--mist);">8:22<span style="font-size:11px;color:var(--sky);"> hrs</span></div><div style="font-family:var(--f-mono);font-size:8.5px;color:var(--synapse);letter-spacing:1px;margin-top:3px;text-transform:uppercase;">Sleep</div></div>
+            <div style="text-align:center;padding:14px;background:rgba(5,10,20,0.5);border-radius:8px;"><div style="font-family:var(--f-mono);font-size:22px;font-weight:300;color:var(--recovery);">94%<span style="font-size:11px;"> est</span></div><div style="font-family:var(--f-mono);font-size:8.5px;color:var(--synapse);letter-spacing:1px;margin-top:3px;text-transform:uppercase;">Retention</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section id="story" class="section-pad">
+  <div class="container">
+    <div class="story-inner reveal">
+      <div class="label" style="margin-bottom:24px;">Why we built this</div>
+      <div class="story-quote">"I've had <em>ten concussions.</em> I built NeuroIQ because nothing existed for people like me."</div>
+      <p class="story-body">For years, I struggled with retention, reading comprehension, and focus. I read the neuroscience. I understood what was happening — damaged neural pathways, impaired consolidation, a brain that needed rebuilding. But every product I tried was built for people who were already well.</p>
+      <p class="story-body">NeuroIQ started as a personal tool. It became a company when I realized how many people were living with exactly the same gap — athletes, veterans, accident survivors, people whose cognitive challenges are real but invisible to the wellness industry.</p>
+      <p class="story-body">The pause in the logo isn't a metaphor. It's the product working. Every night, while you sleep, NeuroIQ runs — delivering the knowledge you need into the exact neural windows where your brain is ready to receive it.</p>
+      <div class="story-attr">
+        <div style="width:42px;height:42px;border-radius:50%;background:rgba(55,138,221,0.2);border:0.5px solid rgba(55,138,221,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div><div class="story-attr-name">Matt Wess</div><div class="story-attr-title">Founder, NeuroIQ</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     FOUNDER'S CIRCLE
+================================================================ -->
+<section id="founders" class="section-pad">
+  <div class="container">
+    <div style="max-width:560px;margin:0 auto;">
+      <div class="reveal">
+        <div class="founders-form-wrap">
+
+          <!-- Success state (shown after submit) -->
+          <div class="form-success" id="formSuccess">
+            <div class="form-success-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>You're in the circle.</h3>
+            <p>We'll be in touch shortly with your founding member details. Welcome to the beginning of something important.</p>
+          </div>
+
+          <!-- The form -->
+          <form id="foundersForm" name="founders-circle" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="founders-circle">
+
+            <div class="form-title">Request Founder Access</div>
+            <div class="form-sub">Neural Founder's Circle · Limited Spots</div>
+
+            <!-- Honeypot -->
+            <p class="ohnohoney"><label>Don't fill this out: <input name="bot-field"></label></p>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="first-name" placeholder="Matt" required>
+              </div>
+              <div class="form-field">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="last-name" placeholder="Wess" required>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-field">
+              <label for="phone">Phone Number (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+            </div>
+
+            <div class="form-field">
+              <label for="reason">Why do you want to join?</label>
+              <select id="reason" name="reason" required>
+                <option value="" disabled selected>Select your situation</option>
+                <option value="tbi-concussion">TBI / Concussion survivor</option>
+                <option value="athlete">Athlete (current or former)</option>
+                <option value="veteran">Veteran</option>
+                <option value="stroke-injury">Stroke / Accident survivor</option>
+                <option value="cognitive-performance">Cognitive performance / Executive</option>
+                <option value="caregiver">Caregiver or family member</option>
+                <option value="researcher">Researcher / Clinician</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="message">Tell us your story (optional)</label>
+              <textarea id="message" name="message" placeholder="What brought you here? What do you need NeuroIQ to do for you?"></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">
+              Request Access
+              <svg style="display:inline;margin-left:8px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <p class="form-privacy">No spam. No credit card. No obligation.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <svg viewBox="0 0 32 32" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="5.5" fill="none" stroke="#378ADD" stroke-width="1"/>
+          <circle cx="16" cy="16" r="2.5" fill="#85B7EB"/>
+          <line x1="16" y1="4"  x2="16" y2="10" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="16" y1="22" x2="16" y2="28" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="5"  y1="8"  x2="11" y2="13" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="27" y1="8"  x2="21" y2="13" stroke="#378ADD" stroke-width=".7"/>
+          <line x1="5"  y1="24" x2="11" y2="19" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="27" y1="24" x2="21" y2="19" stroke="#378ADD" stroke-width=".7"/>
+          <circle cx="16" cy="3"  r="2" fill="#0C447C"/>
+          <circle cx="16" cy="29" r="2" fill="#0C447C"/>
+          <circle cx="3"  cy="8"  r="2" fill="#0C447C"/>
+          <circle cx="29" cy="8"  r="2.5" fill="#185FA5"/>
+          <circle cx="3"  cy="24" r="2" fill="#0C447C"/>
+          <circle cx="29" cy="24" r="2.5" fill="#185FA5"/>
+        </svg>
+        <span class="nav-logo-text">Neuro<strong>IQ</strong></span>
+      </div>
+      <p>The pause is where you learn.<br>Neural recovery platform for TBI survivors, concussion recovery, and cognitive performance.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#science">The science</a></li>
+        <li><a href="#audience">Who it's for</a></li>
+        <li><a href="#founders">Request Access</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#story">Our story</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy policy</a></li>
+        <li><a href="#">Terms of use</a></li>
+        <li><a href="#">Medical disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>© 2026 NeuroIQ · neuroiq.app</p>
+    <p>Not a medical device. Not intended to diagnose, treat, or cure any condition.</p>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40));
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Form handling — Netlify handles the POST, we just show success state
+const form = document.getElementById('foundersForm');
+const success = document.getElementById('formSuccess');
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      await fetch('/', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: new URLSearchParams(data).toString() });
+      // Fire GA4 conversion event
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'generate_lead', {
+          event_category: 'Founder Circle',
+          event_label: 'Form Submission',
+          value: 1
+        });
+      }
+      form.style.display = 'none';
+      success.style.display = 'block';
+    } catch (err) {
+      form.submit();
+    }
+  });
+}
+</script>
+</body>
+</html>

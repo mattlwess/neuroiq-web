@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroIQ — Brand Guide v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --night:    #050A14;
+    --navy:     #0C447C;
+    --synapse:  #185FA5;
+    --signal:   #378ADD;
+    --sky:      #85B7EB;
+    --mist:     #E6F1FB;
+    --spindle:  #534AB7;
+    --recovery: #1D9E75;
+    --recover2: #9FE1CB;
+    --white:    #FFFFFF;
+    --gray100:  #F4F6F9;
+    --gray300:  #C8D0DB;
+    --gray500:  #8892A0;
+    --gray800:  #1E2530;
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  html { font-size: 16px; }
+  body { font-family: var(--font-body); background: var(--white); color: var(--gray800); line-height: 1.6; }
+  .page { min-height: 100vh; position: relative; }
+  .page + .page { border-top: 1px solid var(--gray300); }
+
+  /* COVER */
+  .cover { background: var(--night); display: flex; flex-direction: column; justify-content: space-between; padding: 80px 80px 60px; min-height: 100vh; }
+  .cover-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .cover-label { font-family: var(--font-display); font-size: 11px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: var(--synapse); }
+  .cover-version { font-family: var(--font-mono); font-size: 11px; color: var(--navy); letter-spacing: 1px; }
+  .cover-center { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 80px 0 60px; }
+  .cover-tagline-label { font-family: var(--font-display); font-size: 13px; font-weight: 300; letter-spacing: 4px; text-transform: uppercase; color: var(--synapse); margin-bottom: 32px; }
+  .cover-title { font-family: var(--font-display); font-weight: 200; font-size: 96px; line-height: 1; color: var(--mist); letter-spacing: -4px; }
+  .cover-title span { font-weight: 600; color: var(--signal); }
+  .cover-sub { font-family: var(--font-display); font-weight: 300; font-size: 18px; color: var(--synapse); margin-top: 24px; letter-spacing: 1px; }
+  .cover-line { width: 60px; height: 0.5px; background: var(--navy); margin: 24px 0; }
+  .cover-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .cover-mission { font-family: var(--font-body); font-size: 14px; font-weight: 300; color: var(--sky); max-width: 420px; line-height: 1.7; }
+  .cover-mission strong { color: var(--mist); font-weight: 400; }
+  .cover-toc { text-align: right; }
+  .cover-toc-item { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; color: var(--navy); margin-bottom: 6px; text-transform: uppercase; }
+
+  /* SECTIONS */
+  .section { padding: 80px 80px 100px; }
+  .section-alt { background: var(--gray100); }
+  .section-dark { background: var(--night); }
+  .section-header { margin-bottom: 56px; }
+  .section-num { font-family: var(--font-mono); font-size: 11px; color: var(--gray500); letter-spacing: 2px; margin-bottom: 8px; }
+  .section-dark .section-num { color: var(--navy); }
+  .section-title { font-family: var(--font-display); font-size: 42px; font-weight: 200; color: var(--gray800); letter-spacing: -1px; line-height: 1.1; }
+  .section-dark .section-title { color: var(--mist); }
+  .section-rule { width: 48px; height: 2px; background: var(--signal); margin-top: 20px; }
+  .section-dark .section-rule { background: var(--synapse); }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+
+  /* CARDS */
+  .card { background: var(--white); border: 0.5px solid var(--gray300); border-radius: 12px; overflow: hidden; }
+  .card-body { padding: 20px 22px; }
+  .card-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray500); margin-bottom: 6px; }
+  .card-name { font-family: var(--font-display); font-size: 15px; font-weight: 500; color: var(--gray800); margin-bottom: 5px; }
+  .card-desc { font-size: 12px; color: var(--gray500); line-height: 1.6; }
+
+  /* LOGO STAGES */
+  .logo-stage { display: flex; align-items: center; justify-content: center; padding: 48px 32px; }
+  .stage-dark { background: var(--night); }
+  .stage-light { background: var(--gray100); }
+  .stage-white { background: var(--white); border-bottom: 0.5px solid var(--gray300); }
+  .stage-mid { background: #0A1628; }
+
+  /* COLOR SWATCHES */
+  .swatch { border-radius: 12px; overflow: hidden; border: 0.5px solid var(--gray300); }
+  .swatch-color { height: 96px; }
+  .swatch-body { padding: 14px 16px; background: var(--white); }
+  .swatch-name { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--gray800); margin-bottom: 3px; }
+  .swatch-hex { font-family: var(--font-mono); font-size: 11px; color: var(--gray500); }
+  .swatch-use { font-size: 11px; color: var(--gray500); margin-top: 6px; line-height: 1.45; }
+
+  /* TYPOGRAPHY */
+  .type-sample { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 0.5px solid var(--gray300); }
+  .type-sample:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+  .type-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--gray500); text-transform: uppercase; margin-bottom: 16px; }
+  .type-scale { display: flex; flex-direction: column; gap: 5px; margin-top: 18px; }
+  .type-scale-row { display: flex; align-items: baseline; gap: 20px; }
+  .type-scale-label { font-family: var(--font-mono); font-size: 10px; color: var(--gray500); min-width: 80px; }
+
+  /* VOICE */
+  .voice-tile { padding: 26px; border-radius: 12px; border: 0.5px solid var(--gray300); background: var(--white); }
+  .voice-tile-head { font-family: var(--font-display); font-size: 18px; font-weight: 500; color: var(--gray800); margin-bottom: 6px; }
+  .voice-tile-sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--signal); margin-bottom: 12px; }
+  .voice-tile-desc { font-size: 13px; color: var(--gray500); line-height: 1.65; }
+  .voice-example { margin-top: 12px; padding: 11px 14px; background: var(--gray100); border-radius: 8px; border-left: 2px solid var(--signal); font-size: 13px; font-style: italic; color: var(--gray800); line-height: 1.6; }
+  .voice-avoid { margin-top: 8px; padding: 10px 13px; background: #FFF5F5; border-radius: 8px; border-left: 2px solid #E24B4A; font-size: 12px; color: #A32D2D; line-height: 1.6; }
+  .voice-avoid::before { content: "✕  "; font-weight: 500; }
+
+  /* DO / DON'T */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .do-card { border-radius: 12px; overflow: hidden; border: 0.5px solid var(--gray300); }
+  .do-stage { padding: 28px; display: flex; align-items: center; justify-content: center; min-height: 130px; }
+  .do-label { padding: 10px 14px; font-size: 12px; font-weight: 500; }
+  .do-label.good { background: #EAF3DE; color: #27500A; }
+  .do-label.bad { background: #FCEBEB; color: #501313; }
+  .do-label.good::before { content: "✓  "; }
+  .do-label.bad::before { content: "✕  "; }
+
+  /* APP MOCKUP */
+  .app-header { padding: 18px 22px 14px; background: #070E1A; border-bottom: 0.5px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; }
+  .app-status { font-family: var(--font-mono); font-size: 9px; color: var(--synapse); letter-spacing: 1px; }
+  .app-content { padding: 20px; background: #08101E; }
+  .session-card { background: #0D1829; border-radius: 10px; padding: 18px; margin-bottom: 12px; border: 0.5px solid rgba(55,138,221,0.18); }
+  .session-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; color: var(--synapse); margin-bottom: 5px; text-transform: uppercase; }
+  .session-val { font-family: var(--font-display); font-size: 26px; font-weight: 200; color: var(--mist); letter-spacing: -1px; }
+  .session-val span { font-size: 13px; color: var(--sky); font-weight: 300; }
+  .session-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-bottom: 12px; }
+  .mini-card { background: #0D1829; border-radius: 8px; padding: 12px; border: 0.5px solid rgba(55,138,221,0.12); }
+  .mini-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 1.5px; color: var(--synapse); margin-bottom: 3px; text-transform: uppercase; }
+  .mini-val { font-family: var(--font-display); font-size: 16px; font-weight: 300; color: var(--mist); }
+  .complete-badge { background: rgba(29,158,117,0.14); border: 0.5px solid rgba(29,158,117,0.38); border-radius: 20px; padding: 5px 12px; display: inline-block; font-family: var(--font-mono); font-size: 9px; color: var(--recovery); letter-spacing: 1px; margin-top: 4px; }
+
+  /* UTILS */
+  .tag { display: inline-block; font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; }
+  .tag-blue { background: rgba(55,138,221,0.1); color: var(--signal); border: 0.5px solid rgba(55,138,221,0.22); }
+  .tag-green { background: rgba(29,158,117,0.1); color: var(--recovery); border: 0.5px solid rgba(29,158,117,0.22); }
+  .tag-gray { background: var(--gray100); color: var(--gray500); border: 0.5px solid var(--gray300); }
+  .tag-purple { background: rgba(83,74,183,0.1); color: var(--spindle); border: 0.5px solid rgba(83,74,183,0.25); }
+  .rule { height: 0.5px; background: var(--gray300); margin: 44px 0; }
+  .spacer { height: 48px; }
+  .guide-footer { background: var(--night); padding: 44px 80px; display: flex; justify-content: space-between; align-items: center; }
+  .guide-footer p { font-family: var(--font-mono); font-size: 10px; color: var(--navy); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  @media print { .page { page-break-after: always; min-height: auto; } }
+</style>
+</head>
+<body>
+
+<!-- ================================================================ -->
+<!-- COVER                                                              -->
+<!-- ================================================================ -->
+<div class="page cover">
+  <div class="cover-top">
+    <span class="cover-label">Brand Identity Guide</span>
+    <span class="cover-version">v2.0 — April 2026</span>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-tagline-label">Neural Recovery Platform</div>
+
+    <!-- Cover wordmark with spindle -->
+    <svg viewBox="0 0 580 110" width="520" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:8px;">
+      <!-- Node mark -->
+      <circle cx="44" cy="55" r="20" fill="none" stroke="#0C447C" stroke-width=".5" opacity=".35"/>
+      <circle cx="44" cy="55" r="13" fill="none" stroke="#185FA5" stroke-width=".8" opacity=".6"/>
+      <circle cx="44" cy="55" r="7" fill="none" stroke="#378ADD" stroke-width="1"/>
+      <circle cx="44" cy="55" r="3" fill="#85B7EB"/>
+      <line x1="44" y1="28" x2="44" y2="46" stroke="#185FA5" stroke-width=".7"/>
+      <line x1="44" y1="64" x2="44" y2="82" stroke="#185FA5" stroke-width=".7"/>
+      <line x1="20" y1="38" x2="38" y2="49" stroke="#185FA5" stroke-width=".7"/>
+      <line x1="68" y1="38" x2="50" y2="49" stroke="#378ADD" stroke-width=".7"/>
+      <line x1="20" y1="72" x2="38" y2="61" stroke="#185FA5" stroke-width=".7"/>
+      <line x1="68" y1="72" x2="50" y2="61" stroke="#378ADD" stroke-width=".7"/>
+      <circle cx="44" cy="24" r="4.5" fill="#0C447C"/>
+      <circle cx="44" cy="86" r="4.5" fill="#0C447C"/>
+      <circle cx="16" cy="34" r="4.5" fill="#0C447C"/>
+      <circle cx="72" cy="34" r="5.5" fill="#185FA5"/>
+      <circle cx="16" cy="76" r="4.5" fill="#0C447C"/>
+      <circle cx="72" cy="76" r="5.5" fill="#185FA5"/>
+      <!-- Neuro -->
+      <text x="96" y="76" font-family="'Outfit',sans-serif" font-size="56" font-weight="200" fill="#E6F1FB" letter-spacing="-2">Neuro</text>
+      <!-- Sleep spindle mark — the EEG signature of memory consolidation -->
+      <path d="M244,55 L250,55 L253,48 L256,62 L259,44 L262,66 L265,48 L268,62 L271,55 L278,55" fill="none" stroke="#534AB7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- IQ -->
+      <text x="284" y="76" font-family="'Outfit',sans-serif" font-size="56" font-weight="600" fill="#378ADD" letter-spacing="-2">IQ</text>
+    </svg>
+
+    <!-- Pause tagline -->
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+      <div style="width:44px;height:0.5px;background:var(--navy);"></div>
+      <span style="font-family:var(--font-display);font-size:16px;font-weight:300;color:var(--synapse);letter-spacing:2px;">The pause is where you learn.</span>
+      <div style="width:44px;height:0.5px;background:var(--navy);"></div>
+    </div>
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--navy);letter-spacing:3px;text-transform:uppercase;margin-left:60px;">↑ Sleep spindle — the EEG signature of memory consolidation</div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-mission">
+      <strong>NeuroIQ</strong> is the first platform built to rebuild cognitive pathways in people with TBI, post-concussion syndrome, and learning-related brain impairment. Binaural entrainment, subliminal audio delivery, and user-defined datasets — running during sleep, timed to the brain's natural processing intervals.
+    </div>
+    <div class="cover-toc">
+      <div class="cover-toc-item">01 — Brand Foundation</div>
+      <div class="cover-toc-item">02 — The Pause Mark</div>
+      <div class="cover-toc-item">03 — Logo System</div>
+      <div class="cover-toc-item">04 — Color Palette</div>
+      <div class="cover-toc-item">05 — Typography</div>
+      <div class="cover-toc-item">06 — Voice &amp; Tone</div>
+      <div class="cover-toc-item">07 — Usage Rules</div>
+      <div class="cover-toc-item">08 — App UI Language</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 01 BRAND FOUNDATION                                                -->
+<!-- ================================================================ -->
+<div class="page section">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">Brand<br>Foundation</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="grid-2" style="gap:52px;margin-bottom:52px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">Mission</p>
+      <p style="font-family:var(--font-display);font-size:21px;font-weight:300;color:var(--gray800);line-height:1.6;letter-spacing:-0.3px;">To give people with damaged or underperforming brains the tools to rebuild, retain, and reclaim their cognitive potential — using the hours they are already sleeping.</p>
+    </div>
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">The three-layer product</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--signal);margin-top:8px;flex-shrink:0;"></div>
+          <p style="font-size:14px;color:var(--gray500);line-height:1.65;"><strong style="color:var(--gray800);font-weight:500;">Layer 1 — Binaural entrainment.</strong> User selects frequency. Brain is tuned to target state (delta, theta, alpha, gamma). The neural window opens.</p>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--signal);margin-top:8px;flex-shrink:0;"></div>
+          <p style="font-size:14px;color:var(--gray500);line-height:1.65;"><strong style="color:var(--gray800);font-weight:500;">Layer 2 — Subliminal delivery.</strong> Content is encoded and delivered below the conscious auditory threshold in timed intervals matched to the brain's processing cycle.</p>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:5px;height:5px;border-radius:50%;background:var(--recovery);margin-top:8px;flex-shrink:0;"></div>
+          <p style="font-size:14px;color:var(--gray500);line-height:1.65;"><strong style="color:var(--gray800);font-weight:500;">Layer 3 — User dataset.</strong> Any content the user defines — notes, documents, audio transcripts, study materials. The payload is theirs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:22px;">Brand Personality</p>
+  <div class="grid-4" style="margin-bottom:52px;">
+    <div style="padding:22px;background:var(--gray100);border-radius:12px;">
+      <div style="font-family:var(--font-display);font-size:19px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Precise</div>
+      <div style="font-size:12px;color:var(--gray500);line-height:1.6;">Clinical accuracy. Every claim is backed by the neuroscience of sleep and neuroplasticity.</div>
+    </div>
+    <div style="padding:22px;background:var(--gray100);border-radius:12px;">
+      <div style="font-family:var(--font-display);font-size:19px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Hopeful</div>
+      <div style="font-size:12px;color:var(--gray500);line-height:1.6;">Built for people told recovery has limits. NeuroIQ rejects that framing — with evidence, not promises.</div>
+    </div>
+    <div style="padding:22px;background:var(--gray100);border-radius:12px;">
+      <div style="font-family:var(--font-display);font-size:19px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Empowering</div>
+      <div style="font-size:12px;color:var(--gray500);line-height:1.6;">The user controls frequency, dataset, and schedule. Their brain. Their recovery. Their terms.</div>
+    </div>
+    <div style="padding:22px;background:var(--gray100);border-radius:12px;">
+      <div style="font-family:var(--font-display);font-size:19px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Quiet</div>
+      <div style="font-size:12px;color:var(--gray500);line-height:1.6;">Works while the user sleeps. The brand reflects this — it does not shout. It trusts its results.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--night);border-radius:16px;padding:38px 46px;display:flex;justify-content:space-between;align-items:center;gap:44px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Primary tagline</p>
+      <p style="font-family:var(--font-display);font-size:26px;font-weight:300;color:var(--mist);letter-spacing:-0.4px;">"The pause is where you learn."</p>
+    </div>
+    <div style="width:0.5px;background:rgba(255,255,255,0.07);align-self:stretch;flex-shrink:0;"></div>
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Secondary tagline</p>
+      <p style="font-family:var(--font-display);font-size:17px;font-weight:300;color:var(--sky);letter-spacing:-0.2px;">"Rebuild your brain. While you sleep."</p>
+    </div>
+    <div style="width:0.5px;background:rgba(255,255,255,0.07);align-self:stretch;flex-shrink:0;"></div>
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Product line</p>
+      <p style="font-family:var(--font-display);font-size:17px;font-weight:300;color:var(--sky);">"Your data. Your frequency.<br>Your recovery."</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 02 THE PAUSE MARK                                                  -->
+<!-- ================================================================ -->
+<div class="page section section-alt">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">The Pause<br>Mark</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="grid-2" style="gap:40px;margin-bottom:44px;">
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">What it is</p>
+      <p style="font-size:14px;color:var(--gray500);line-height:1.7;margin-bottom:16px;">The mark between "Neuro" and "IQ" is a <strong style="color:var(--gray800);font-weight:500;">sleep spindle</strong> — the exact EEG waveform signature of memory consolidation during NREM sleep. It appears as a burst of neural oscillation (12–15 Hz) that waxes, peaks, and wanes over 0.5–3 seconds.</p>
+      <p style="font-size:14px;color:var(--gray500);line-height:1.7;">This is not decoration. NeuroIQ delivers data packets timed to these natural intervals. The pause between delivery cycles is when the hippocampus encodes what it just received. <strong style="color:var(--gray800);font-weight:500;">The logo shows the product working.</strong></p>
+    </div>
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">The three-word explanation</p>
+      <div style="background:var(--white);border-radius:12px;border:0.5px solid var(--gray300);padding:28px 32px;margin-bottom:16px;">
+        <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center;text-align:center;">
+          <div>
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--gray800);">Data</div>
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--gray500);letter-spacing:1px;margin-top:4px;">DELIVERED</div>
+          </div>
+          <svg viewBox="0 0 44 32" width="40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2,16 L7,16 L10,9 L13,23 L16,6 L19,26 L22,10 L25,22 L28,16 L36,16" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--spindle);">Pause</div>
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--gray500);letter-spacing:1px;margin-top:4px;">ENCODES</div>
+          </div>
+          <svg viewBox="0 0 44 32" width="40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2,16 L7,16 L10,9 L13,23 L16,6 L19,26 L22,10 L25,22 L28,16 L36,16" fill="none" stroke="#534AB7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--recovery);">Retained</div>
+            <div style="font-family:var(--font-mono);font-size:9px;color:var(--gray500);letter-spacing:1px;margin-top:4px;">LEARNED</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--gray500);line-height:1.6;">The pause is not dead air. It is the moment of active neurological encoding. NeuroIQ's intentional inter-stimulus intervals — built around natural sleep spindle timing — are what separates it from every other audio delivery system.</p>
+    </div>
+  </div>
+
+  <!-- Spindle anatomy -->
+  <div style="background:var(--white);border-radius:14px;border:0.5px solid var(--gray300);padding:36px 40px;margin-bottom:28px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:28px;">Spindle anatomy — what the mark depicts</p>
+    <svg viewBox="0 0 680 100" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- Baseline -->
+      <line x1="20" y1="50" x2="660" y2="50" stroke="#C8D0DB" stroke-width=".5"/>
+      <!-- The spindle waveform — waxing and waning envelope -->
+      <path d="M20,50 L100,50 L110,46 L120,54 L130,41 L140,59 L150,35 L160,65 L170,30 L180,70 L190,28 L200,72 L210,30 L220,70 L230,36 L240,64 L250,42 L260,58 L270,48 L280,52 L290,50 L380,50" fill="none" stroke="#534AB7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Envelope outline (dashed) -->
+      <path d="M130,38 Q200,18 265,38" fill="none" stroke="#AFA9EC" stroke-width=".7" stroke-dasharray="3,3"/>
+      <path d="M130,62 Q200,82 265,62" fill="none" stroke="#AFA9EC" stroke-width=".7" stroke-dasharray="3,3"/>
+      <!-- Labels -->
+      <text x="20" y="88" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8892A0" letter-spacing="1">FLAT</text>
+      <text x="110" y="88" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8892A0" letter-spacing="1">WAXING</text>
+      <text x="175" y="88" font-family="'JetBrains Mono',monospace" font-size="9" fill="#534AB7" letter-spacing="1">PEAK CONSOLIDATION</text>
+      <text x="246" y="88" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8892A0" letter-spacing="1">WANING</text>
+      <text x="300" y="88" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8892A0" letter-spacing="1">FLAT — NEXT PACKET DELIVERED</text>
+      <!-- Tick marks -->
+      <line x1="100" y1="50" x2="100" y2="78" stroke="#C8D0DB" stroke-width=".5"/>
+      <line x1="190" y1="50" x2="190" y2="78" stroke="#534AB7" stroke-width=".5" opacity=".5"/>
+      <line x1="280" y1="50" x2="280" y2="78" stroke="#C8D0DB" stroke-width=".5"/>
+      <line x1="380" y1="50" x2="380" y2="78" stroke="#1D9E75" stroke-width=".5" opacity=".5"/>
+      <!-- Frequency label -->
+      <text x="420" y="40" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8892A0">12–15 Hz burst</text>
+      <text x="420" y="54" font-family="'JetBrains Mono',monospace" font-size="9" fill="#8892A0">0.5–3 sec duration</text>
+      <text x="420" y="68" font-family="'JetBrains Mono',monospace" font-size="9" fill="#534AB7">NREM Stage 2</text>
+    </svg>
+  </div>
+
+  <!-- Spindle color -->
+  <div style="background:var(--white);border-radius:12px;border:0.5px solid var(--gray300);padding:22px 26px;display:flex;gap:24px;align-items:center;">
+    <div style="width:48px;height:48px;border-radius:12px;background:#534AB7;flex-shrink:0;"></div>
+    <div>
+      <div style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--gray800);margin-bottom:3px;">Spindle Purple — #534AB7</div>
+      <div style="font-size:12px;color:var(--gray500);line-height:1.6;">The pause mark uses a distinct purple — separate from the signal blues — to signal a different register: not the data, not the outcome, but the <em>mechanism</em> between them. It is the only purple element in the entire brand system.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 03 LOGO SYSTEM                                                     -->
+<!-- ================================================================ -->
+<div class="page section">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title">Logo<br>System</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <!-- Primary dark -->
+  <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">Primary — Dark</p>
+  <div class="card" style="margin-bottom:22px;">
+    <div class="logo-stage stage-dark">
+      <svg viewBox="0 0 520 120" width="490" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="44" cy="60" r="18" fill="none" stroke="#0C447C" stroke-width=".5" opacity=".4"/>
+        <circle cx="44" cy="60" r="11" fill="none" stroke="#378ADD" stroke-width="1"/>
+        <circle cx="44" cy="60" r="4" fill="#85B7EB"/>
+        <line x1="44" y1="34" x2="44" y2="47" stroke="#185FA5" stroke-width=".7"/>
+        <line x1="44" y1="73" x2="44" y2="86" stroke="#185FA5" stroke-width=".7"/>
+        <line x1="20" y1="43" x2="36" y2="53" stroke="#185FA5" stroke-width=".7"/>
+        <line x1="68" y1="43" x2="52" y2="53" stroke="#378ADD" stroke-width=".7"/>
+        <line x1="20" y1="77" x2="36" y2="67" stroke="#185FA5" stroke-width=".7"/>
+        <line x1="68" y1="77" x2="52" y2="67" stroke="#378ADD" stroke-width=".7"/>
+        <circle cx="44" cy="30" r="4.5" fill="#0C447C"/>
+        <circle cx="44" cy="90" r="4.5" fill="#0C447C"/>
+        <circle cx="16" cy="39" r="4.5" fill="#0C447C"/>
+        <circle cx="72" cy="39" r="5.5" fill="#185FA5"/>
+        <circle cx="16" cy="81" r="4.5" fill="#0C447C"/>
+        <circle cx="72" cy="81" r="5.5" fill="#185FA5"/>
+        <!-- Neuro -->
+        <text x="92" y="78" font-family="'Outfit',sans-serif" font-size="50" font-weight="200" fill="#E6F1FB" letter-spacing="-2">Neuro</text>
+        <!-- Spindle mark -->
+        <path d="M230,60 L236,60 L239,52 L242,68 L245,46 L248,74 L251,52 L254,68 L258,60 L265,60" fill="none" stroke="#534AB7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- IQ -->
+        <text x="270" y="78" font-family="'Outfit',sans-serif" font-size="50" font-weight="600" fill="#378ADD" letter-spacing="-2">IQ</text>
+        <!-- Rule and tagline -->
+        <line x1="92" y1="88" x2="375" y2="88" stroke="#0C447C" stroke-width=".5" opacity=".7"/>
+        <text x="92" y="102" font-family="'Outfit',sans-serif" font-size="9" font-weight="300" fill="#185FA5" letter-spacing="3">THE PAUSE IS WHERE YOU LEARN.</text>
+      </svg>
+    </div>
+    <div class="card-body">
+      <span class="tag tag-blue" style="margin-right:8px;">Primary</span>
+      <span class="tag tag-purple" style="margin-right:8px;">Spindle mark</span>
+      <span class="tag tag-gray">Dark backgrounds</span>
+      <p style="font-size:12px;color:var(--gray500);margin-top:10px;line-height:1.6;">Primary usage. The sleep spindle sits in the reduced gap between "Neuro" and "IQ" — tighter than v1, but with the spindle mark giving the space meaning rather than just air.</p>
+    </div>
+  </div>
+
+  <!-- Primary light -->
+  <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">Primary — Light</p>
+  <div class="card" style="margin-bottom:40px;">
+    <div class="logo-stage stage-white">
+      <svg viewBox="0 0 520 120" width="490" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="44" cy="60" r="11" fill="none" stroke="#185FA5" stroke-width="1"/>
+        <circle cx="44" cy="60" r="4" fill="#378ADD"/>
+        <line x1="44" y1="34" x2="44" y2="47" stroke="#0C447C" stroke-width=".7"/>
+        <line x1="44" y1="73" x2="44" y2="86" stroke="#0C447C" stroke-width=".7"/>
+        <line x1="20" y1="43" x2="36" y2="53" stroke="#0C447C" stroke-width=".7"/>
+        <line x1="68" y1="43" x2="52" y2="53" stroke="#185FA5" stroke-width=".7"/>
+        <line x1="20" y1="77" x2="36" y2="67" stroke="#0C447C" stroke-width=".7"/>
+        <line x1="68" y1="77" x2="52" y2="67" stroke="#185FA5" stroke-width=".7"/>
+        <circle cx="44" cy="30" r="4.5" fill="#185FA5"/>
+        <circle cx="44" cy="90" r="4.5" fill="#185FA5"/>
+        <circle cx="16" cy="39" r="4.5" fill="#185FA5"/>
+        <circle cx="72" cy="39" r="5.5" fill="#0C447C"/>
+        <circle cx="16" cy="81" r="4.5" fill="#185FA5"/>
+        <circle cx="72" cy="81" r="5.5" fill="#0C447C"/>
+        <text x="92" y="78" font-family="'Outfit',sans-serif" font-size="50" font-weight="200" fill="#050A14" letter-spacing="-2">Neuro</text>
+        <path d="M230,60 L236,60 L239,52 L242,68 L245,46 L248,74 L251,52 L254,68 L258,60 L265,60" fill="none" stroke="#534AB7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="270" y="78" font-family="'Outfit',sans-serif" font-size="50" font-weight="600" fill="#185FA5" letter-spacing="-2">IQ</text>
+        <line x1="92" y1="88" x2="375" y2="88" stroke="#C8D0DB" stroke-width=".5"/>
+        <text x="92" y="102" font-family="'Outfit',sans-serif" font-size="9" font-weight="300" fill="#8892A0" letter-spacing="3">THE PAUSE IS WHERE YOU LEARN.</text>
+      </svg>
+    </div>
+    <div class="card-body">
+      <span class="tag tag-gray" style="margin-right:8px;">Light mode</span>
+      <span class="tag tag-gray">Documents · Web · Print</span>
+    </div>
+  </div>
+
+  <!-- Variations -->
+  <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">Variations</p>
+  <div class="grid-3">
+
+    <!-- Horizontal compact -->
+    <div class="card">
+      <div class="logo-stage stage-dark" style="min-height:170px;">
+        <svg viewBox="0 0 280 70" width="240" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="35" r="8" fill="none" stroke="#378ADD" stroke-width=".9"/>
+          <circle cx="26" cy="35" r="3" fill="#85B7EB"/>
+          <line x1="26" y1="18" x2="26" y2="25" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="26" y1="45" x2="26" y2="52" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="9" y1="24" x2="19" y2="30" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="43" y1="24" x2="33" y2="30" stroke="#378ADD" stroke-width=".6"/>
+          <line x1="9" y1="46" x2="19" y2="40" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="43" y1="46" x2="33" y2="40" stroke="#378ADD" stroke-width=".6"/>
+          <circle cx="26" cy="15" r="3.5" fill="#0C447C"/>
+          <circle cx="26" cy="55" r="3.5" fill="#0C447C"/>
+          <circle cx="6" cy="21" r="3.5" fill="#0C447C"/>
+          <circle cx="46" cy="21" r="4" fill="#185FA5"/>
+          <circle cx="6" cy="49" r="3.5" fill="#0C447C"/>
+          <circle cx="46" cy="49" r="4" fill="#185FA5"/>
+          <text x="56" y="46" font-family="'Outfit',sans-serif" font-size="30" font-weight="200" fill="#E6F1FB" letter-spacing="-1">Neuro</text>
+          <path d="M140,35 L144,35 L146,30 L148,40 L150,27 L152,43 L154,30 L156,40 L159,35 L164,35" fill="none" stroke="#534AB7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="168" y="46" font-family="'Outfit',sans-serif" font-size="30" font-weight="600" fill="#378ADD" letter-spacing="-1">IQ</text>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Compact horizontal</div>
+        <div class="card-name">Navigation · App bar</div>
+        <div class="card-desc">Website navigation, app header, presentations, email signatures</div>
+      </div>
+    </div>
+
+    <!-- App icon -->
+    <div class="card">
+      <div class="logo-stage stage-mid" style="min-height:170px;">
+        <svg viewBox="0 0 160 170" width="140" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="18" width="116" height="116" rx="28" fill="#0C447C"/>
+          <rect x="22" y="18" width="116" height="116" rx="28" fill="none" stroke="#185FA5" stroke-width=".6" opacity=".35"/>
+          <circle cx="80" cy="76" r="14" fill="none" stroke="#85B7EB" stroke-width="1.2"/>
+          <circle cx="80" cy="76" r="5.5" fill="#B5D4F4"/>
+          <line x1="80" y1="44" x2="80" y2="60" stroke="#378ADD" stroke-width=".9"/>
+          <line x1="80" y1="92" x2="80" y2="108" stroke="#378ADD" stroke-width=".9"/>
+          <line x1="50" y1="55" x2="68" y2="68" stroke="#378ADD" stroke-width=".9"/>
+          <line x1="110" y1="55" x2="92" y2="68" stroke="#85B7EB" stroke-width=".9"/>
+          <line x1="50" y1="97" x2="68" y2="84" stroke="#378ADD" stroke-width=".9"/>
+          <line x1="110" y1="97" x2="92" y2="84" stroke="#85B7EB" stroke-width=".9"/>
+          <circle cx="80" cy="40" r="6" fill="#185FA5"/>
+          <circle cx="80" cy="112" r="6" fill="#185FA5"/>
+          <circle cx="46" cy="51" r="6" fill="#185FA5"/>
+          <circle cx="114" cy="51" r="7" fill="#378ADD"/>
+          <circle cx="46" cy="101" r="6" fill="#185FA5"/>
+          <circle cx="114" cy="101" r="7" fill="#378ADD"/>
+          <text x="80" y="154" font-family="'Outfit',sans-serif" font-size="13" font-weight="300" fill="#85B7EB" text-anchor="middle" letter-spacing="1.5">neuroiq</text>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="card-label">App icon</div>
+        <div class="card-name">iOS · Android · Favicon</div>
+        <div class="card-desc">Node mark in rounded square. Wordmark below for list views. No spindle at icon scale.</div>
+      </div>
+    </div>
+
+    <!-- Stacked with spindle separator -->
+    <div class="card">
+      <div class="logo-stage stage-dark" style="min-height:170px;">
+        <svg viewBox="0 0 180 170" width="160" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="90" cy="44" r="10" fill="none" stroke="#378ADD" stroke-width="1"/>
+          <circle cx="90" cy="44" r="3.5" fill="#85B7EB"/>
+          <line x1="90" y1="22" x2="90" y2="32" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="90" y1="56" x2="90" y2="66" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="68" y1="30" x2="82" y2="39" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="112" y1="30" x2="98" y2="39" stroke="#378ADD" stroke-width=".7"/>
+          <line x1="68" y1="58" x2="82" y2="49" stroke="#185FA5" stroke-width=".7"/>
+          <line x1="112" y1="58" x2="98" y2="49" stroke="#378ADD" stroke-width=".7"/>
+          <circle cx="90" cy="18" r="4" fill="#0C447C"/>
+          <circle cx="90" cy="70" r="4" fill="#0C447C"/>
+          <circle cx="65" cy="26" r="4" fill="#0C447C"/>
+          <circle cx="115" cy="26" r="4.5" fill="#185FA5"/>
+          <circle cx="65" cy="62" r="4" fill="#0C447C"/>
+          <circle cx="115" cy="62" r="4.5" fill="#185FA5"/>
+          <!-- Neuro -->
+          <text x="90" y="102" font-family="'Outfit',sans-serif" font-size="26" font-weight="200" fill="#E6F1FB" text-anchor="middle" letter-spacing="0">Neuro</text>
+          <!-- Spindle separator line -->
+          <line x1="28" y1="113" x2="60" y2="113" stroke="#0C447C" stroke-width=".5" opacity=".6"/>
+          <path d="M62,113 L66,113 L68,109 L70,117 L72,106 L74,120 L76,109 L78,117 L80,113 L86,113" fill="none" stroke="#534AB7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="88" y1="113" x2="152" y2="113" stroke="#0C447C" stroke-width=".5" opacity=".6"/>
+          <!-- IQ -->
+          <text x="90" y="142" font-family="'Outfit',sans-serif" font-size="26" font-weight="600" fill="#378ADD" text-anchor="middle" letter-spacing="0">IQ</text>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Stacked vertical</div>
+        <div class="card-name">Square formats</div>
+        <div class="card-desc">Social profiles, square cards, presentations. Spindle as separator between the two words.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear space -->
+  <div class="spacer"></div>
+  <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:14px;">Clear Space &amp; Minimum Size</p>
+  <div class="grid-2" style="gap:20px;">
+    <div style="background:var(--white);border:0.5px solid var(--gray300);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:16px;">
+      <div style="border:1px dashed #C8D0DB;padding:24px;display:inline-flex;align-self:flex-start;">
+        <svg viewBox="0 0 240 56" width="220" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="28" r="7" fill="none" stroke="#378ADD" stroke-width=".8"/>
+          <circle cx="18" cy="28" r="2.5" fill="#85B7EB"/>
+          <line x1="18" y1="12" x2="18" y2="20" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="18" y1="36" x2="18" y2="44" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="4" y1="18" x2="12" y2="23" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="32" y1="18" x2="24" y2="23" stroke="#378ADD" stroke-width=".6"/>
+          <line x1="4" y1="38" x2="12" y2="33" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="32" y1="38" x2="24" y2="33" stroke="#378ADD" stroke-width=".6"/>
+          <circle cx="18" cy="10" r="2.5" fill="#0C447C"/>
+          <circle cx="18" cy="46" r="2.5" fill="#0C447C"/>
+          <circle cx="2" cy="15" r="2.5" fill="#0C447C"/>
+          <circle cx="34" cy="15" r="3" fill="#185FA5"/>
+          <circle cx="2" cy="41" r="2.5" fill="#0C447C"/>
+          <circle cx="34" cy="41" r="3" fill="#185FA5"/>
+          <text x="44" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#050A14" letter-spacing="-1">Neuro</text>
+          <path d="M111,28 L114,28 L116,24 L118,32 L120,21 L122,35 L124,24 L126,32 L128,28 L132,28" fill="none" stroke="#534AB7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="136" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="600" fill="#185FA5" letter-spacing="-1">IQ</text>
+        </svg>
+      </div>
+      <p style="font-size:12px;color:var(--gray500);line-height:1.65;">Maintain clear space equal to the cap height of the "N" on all four sides. Never allow other elements within this zone. The dashed border above represents the minimum clear space boundary.</p>
+    </div>
+    <div style="background:var(--white);border:0.5px solid var(--gray300);border-radius:12px;padding:28px;">
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:16px;">Minimum sizes</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--gray500);min-width:80px;">Digital</span>
+          <span style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--gray800);">160px wide minimum</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--gray500);min-width:80px;">Print</span>
+          <span style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--gray800);">40mm wide minimum</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span style="font-family:var(--font-mono);font-size:11px;color:var(--gray500);min-width:80px;">Note</span>
+          <span style="font-size:12px;color:var(--gray500);line-height:1.5;">Below 160px the spindle mark loses legibility. Use app icon variant instead.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 04 COLOR PALETTE                                                   -->
+<!-- ================================================================ -->
+<div class="page section section-alt">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-title">Color<br>Palette</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:18px;">Primary palette</p>
+  <div class="grid-4" style="margin-bottom:20px;">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#050A14;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Deep Night</div>
+        <div class="swatch-hex">#050A14 · RGB 5 10 20</div>
+        <div class="swatch-use">Primary background. The color of sleep itself.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0C447C;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Neural Navy</div>
+        <div class="swatch-hex">#0C447C · RGB 12 68 124</div>
+        <div class="swatch-use">Secondary surfaces. Card backgrounds. Node fill.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#185FA5;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Synapse Blue</div>
+        <div class="swatch-hex">#185FA5 · RGB 24 95 165</div>
+        <div class="swatch-use">Borders, lines, connectors. Secondary text on dark.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#378ADD;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Signal</div>
+        <div class="swatch-hex">#378ADD · RGB 55 138 221</div>
+        <div class="swatch-use">IQ mark. CTAs. Active states. Primary interactive.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-4" style="margin-bottom:36px;">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#85B7EB;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Sky</div>
+        <div class="swatch-hex">#85B7EB · RGB 133 183 235</div>
+        <div class="swatch-use">Secondary text on dark. Supporting UI elements.</div>
+      </div>
+    </div>
+    <div class="swatch" style="border:0.5px solid var(--gray300);">
+      <div class="swatch-color" style="background:#E6F1FB;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Mist</div>
+        <div class="swatch-hex">#E6F1FB · RGB 230 241 251</div>
+        <div class="swatch-use">Primary text on dark. "Neuro" wordmark on dark.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#534AB7;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Spindle</div>
+        <div class="swatch-hex">#534AB7 · RGB 83 74 183</div>
+        <div class="swatch-use" style="color:#3C3489;font-weight:500;">Pause mark ONLY. The one purple element in the system. Never used elsewhere.</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1D9E75;"></div>
+      <div class="swatch-body">
+        <div class="swatch-name">Recovery</div>
+        <div class="swatch-hex">#1D9E75 · RGB 29 158 117</div>
+        <div class="swatch-use" style="color:#0F6E56;font-weight:500;">Success states ONLY. Session complete, milestones, cognitive gains. Use sparingly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--white);border-radius:14px;border:0.5px solid var(--gray300);padding:28px 32px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray500);margin-bottom:18px;">Color hierarchy — the 90 / 5 / 5 rule</p>
+    <div class="grid-3" style="gap:28px;">
+      <div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:200;color:var(--signal);margin-bottom:4px;">90%</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Blues</div>
+        <div style="font-size:12px;color:var(--gray500);line-height:1.6;">Deep Night through Mist form the entire brand environment. Precision. Trust. Clinical credibility.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:200;color:var(--spindle);margin-bottom:4px;">5%</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Spindle Purple</div>
+        <div style="font-size:12px;color:var(--gray500);line-height:1.6;">The pause mark only. It lives in the gap between input and outcome. Nowhere else.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:32px;font-weight:200;color:var(--recovery);margin-bottom:4px;">5%</div>
+        <div style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--gray800);margin-bottom:6px;">Recovery Green</div>
+        <div style="font-size:12px;color:var(--gray500);line-height:1.6;">When you see green, you know your brain just did something. Restrained use makes it land harder.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 05 TYPOGRAPHY                                                      -->
+<!-- ================================================================ -->
+<div class="page section">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-title">Typography</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="type-sample">
+    <div class="type-meta">Display — Outfit · Google Fonts · Free · All weights</div>
+    <div style="font-family:var(--font-display);font-size:68px;font-weight:200;line-height:1;color:var(--gray800);letter-spacing:-3px;margin-bottom:12px;">Neuro<span style="font-weight:600;color:var(--signal);">IQ</span></div>
+    <div style="font-family:var(--font-display);font-size:36px;font-weight:300;color:var(--gray800);letter-spacing:-1px;margin-bottom:8px;line-height:1.2;">The pause is where you learn.</div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--gray800);margin-bottom:16px;">Rebuild your brain. While you sleep.</div>
+    <div class="type-scale">
+      <div class="type-scale-row"><span class="type-scale-label">96px / 200</span><span style="font-family:var(--font-display);font-size:56px;font-weight:200;letter-spacing:-3px;color:var(--gray800);">Display</span></div>
+      <div class="type-scale-row"><span class="type-scale-label">48px / 300</span><span style="font-family:var(--font-display);font-size:36px;font-weight:300;letter-spacing:-1px;color:var(--gray800);">Heading</span></div>
+      <div class="type-scale-row"><span class="type-scale-label">28px / 400</span><span style="font-family:var(--font-display);font-size:24px;font-weight:400;color:var(--gray800);">Section title</span></div>
+      <div class="type-scale-row"><span class="type-scale-label">18px / 500</span><span style="font-family:var(--font-display);font-size:17px;font-weight:500;color:var(--gray800);">Card heading</span></div>
+      <div class="type-scale-row"><span class="type-scale-label">600 bold</span><span style="font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--signal);">IQ — reserved for the mark only</span></div>
+    </div>
+  </div>
+
+  <div class="type-sample">
+    <div class="type-meta">Body — DM Sans · Google Fonts · Free</div>
+    <div style="font-family:var(--font-body);font-size:16px;font-weight:400;color:var(--gray800);line-height:1.75;max-width:600px;margin-bottom:12px;">NeuroIQ is the first platform built specifically for people whose brains have been damaged. Through binaural entrainment, subliminal audio delivery, and user-defined content, NeuroIQ triggers neuroplasticity during sleep — the brain's natural repair window.</div>
+    <div style="font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--gray500);line-height:1.65;max-width:540px;">Captions · Metadata · Session notes · Supporting text · Legal copy · Labels at smaller scale</div>
+  </div>
+
+  <div class="type-sample">
+    <div class="type-meta">Technical — JetBrains Mono · Google Fonts · Free · Data displays only</div>
+    <div style="font-family:var(--font-mono);font-size:14px;font-weight:300;color:var(--gray800);letter-spacing:1px;margin-bottom:16px;">SESSION_01 · 7.5 Hz · THETA · 08h 22m · DATASET: Q4_EARNINGS.PDF</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:baseline;">
+      <div style="font-family:var(--font-mono);font-size:28px;font-weight:300;color:var(--signal);">7.5 <span style="font-size:13px;color:var(--gray500);">Hz</span></div>
+      <div style="font-family:var(--font-mono);font-size:28px;font-weight:300;color:var(--gray800);">08:22 <span style="font-size:13px;color:var(--gray500);">hrs</span></div>
+      <div style="font-family:var(--font-mono);font-size:28px;font-weight:300;color:var(--recovery);">94% <span style="font-size:13px;color:var(--gray500);">retention est.</span></div>
+    </div>
+    <p style="font-size:12px;color:var(--gray500);margin-top:14px;line-height:1.65;">Reserved exclusively for technical data output: Hz frequency displays, session timers, pass counts, dataset identifiers, progress percentages. Never for body copy or headings.</p>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 06 VOICE & TONE                                                    -->
+<!-- ================================================================ -->
+<div class="page section section-alt">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-title">Voice<br>&amp; Tone</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:36px;">
+    <div class="voice-tile">
+      <div class="voice-tile-sub">Trait 01</div>
+      <div class="voice-tile-head">Clinically confident</div>
+      <div class="voice-tile-desc">Every claim is grounded in neuroscience. We don't hedge. The mechanism is real — we say so.</div>
+      <div class="voice-example">"Binaural beats entrain your brain to a target frequency. During theta state, memory consolidation and new pathway formation peak. NeuroIQ delivers your content precisely at this window."</div>
+      <div class="voice-avoid">"NeuroIQ might help some users feel like they're learning better while they sleep."</div>
+    </div>
+    <div class="voice-tile">
+      <div class="voice-tile-sub">Trait 02</div>
+      <div class="voice-tile-head">Hopeful, not hype</div>
+      <div class="voice-tile-desc">Our users have been told their cognitive limits are permanent. We reject that — but with evidence, not promises. Hope built on mechanism is credible. Hope built on marketing is not.</div>
+      <div class="voice-example">"Your brain repairs itself every night. NeuroIQ ensures that repair process also builds new pathways to the knowledge you need."</div>
+      <div class="voice-avoid">"Unlock your brain's unlimited potential with NeuroIQ's revolutionary sleep technology!"</div>
+    </div>
+    <div class="voice-tile">
+      <div class="voice-tile-sub">Trait 03</div>
+      <div class="voice-tile-head">Respects intelligence</div>
+      <div class="voice-tile-desc">Our core user survived brain trauma. They don't need to be spoken down to. Use precise terminology. Trust them.</div>
+      <div class="voice-example">"Select entrainment frequency: Delta (0.5–4 Hz) for deep recovery. Theta (4–8 Hz) for memory consolidation. Alpha (8–12 Hz) for light encoding."</div>
+      <div class="voice-avoid">"Pick your sleep vibe! Deep Rest, Dream Mode, or Chill Zone."</div>
+    </div>
+    <div class="voice-tile">
+      <div class="voice-tile-sub">Trait 04</div>
+      <div class="voice-tile-head">Quiet confidence</div>
+      <div class="voice-tile-desc">The product works while people sleep. The brand follows that lead. Short sentences. Active verbs. No exclamation marks. No emoji in clinical contexts.</div>
+      <div class="voice-example">"Session complete. 8h 14m at 6.5 Hz. Dataset: Project Brief v3. Sleep quality: strong."</div>
+      <div class="voice-avoid">"Amazing session!! You crushed it tonight! Your brain is supercharged!! 🧠⚡🚀"</div>
+    </div>
+  </div>
+
+  <div style="background:var(--night);border-radius:16px;padding:36px 44px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:24px;">Message hierarchy</p>
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div style="padding:18px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);display:grid;grid-template-columns:110px 1fr;gap:24px;">
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--navy);letter-spacing:1px;padding-top:2px;">LEVEL 1<br>BRAND</div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:300;color:var(--mist);margin-bottom:3px;">"The pause is where you learn."</div>
+          <div style="font-size:11px;color:var(--synapse);">Primary. Everywhere — tagline, homepage hero, app store, social bio.</div>
+        </div>
+      </div>
+      <div style="padding:18px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);display:grid;grid-template-columns:110px 1fr;gap:24px;">
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--navy);letter-spacing:1px;padding-top:2px;">LEVEL 2<br>MISSION</div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:300;color:var(--sky);margin-bottom:3px;">"Rebuild your brain. While you sleep."</div>
+          <div style="font-size:11px;color:var(--synapse);">Secondary. Marketing materials, product descriptions, onboarding.</div>
+        </div>
+      </div>
+      <div style="padding:18px 0;border-bottom:0.5px solid rgba(255,255,255,0.05);display:grid;grid-template-columns:110px 1fr;gap:24px;">
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--navy);letter-spacing:1px;padding-top:2px;">LEVEL 3<br>PRODUCT</div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:300;color:var(--sky);margin-bottom:3px;">"Your data. Your frequency. Your recovery."</div>
+          <div style="font-size:11px;color:var(--synapse);">Product line. Signals user control of all three layers.</div>
+        </div>
+      </div>
+      <div style="padding:18px 0;display:grid;grid-template-columns:110px 1fr;gap:24px;">
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--navy);letter-spacing:1px;padding-top:2px;">LEVEL 4<br>CLINICAL</div>
+        <div>
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:300;color:var(--sky);margin-bottom:3px;">"The first platform built specifically for TBI and concussion recovery."</div>
+          <div style="font-size:11px;color:var(--synapse);">Clinical, investor, and press contexts where differentiation must be explicit.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 07 USAGE RULES                                                     -->
+<!-- ================================================================ -->
+<div class="page section">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-title">Logo Usage<br>Rules</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-card">
+      <div class="do-stage" style="background:#050A14;">
+        <svg viewBox="0 0 240 56" width="210" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="28" r="7" fill="none" stroke="#378ADD" stroke-width=".8"/>
+          <circle cx="18" cy="28" r="2.5" fill="#85B7EB"/>
+          <line x1="18" y1="12" x2="18" y2="20" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="18" y1="36" x2="18" y2="44" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="4" y1="18" x2="12" y2="23" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="32" y1="18" x2="24" y2="23" stroke="#378ADD" stroke-width=".6"/>
+          <line x1="4" y1="38" x2="12" y2="33" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="32" y1="38" x2="24" y2="33" stroke="#378ADD" stroke-width=".6"/>
+          <circle cx="18" cy="10" r="2.5" fill="#0C447C"/>
+          <circle cx="18" cy="46" r="2.5" fill="#0C447C"/>
+          <circle cx="2" cy="15" r="2.5" fill="#0C447C"/>
+          <circle cx="34" cy="15" r="3" fill="#185FA5"/>
+          <circle cx="2" cy="41" r="2.5" fill="#0C447C"/>
+          <circle cx="34" cy="41" r="3" fill="#185FA5"/>
+          <text x="44" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#E6F1FB" letter-spacing="-1">Neuro</text>
+          <path d="M111,28 L114,28 L116,24 L118,32 L120,21 L122,35 L124,24 L126,32 L128,28 L132,28" fill="none" stroke="#534AB7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="136" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="600" fill="#378ADD" letter-spacing="-1">IQ</text>
+        </svg>
+      </div>
+      <div class="do-label good">Primary logo on Deep Night</div>
+    </div>
+    <div class="do-card">
+      <div class="do-stage" style="background:#F4F7FC;">
+        <svg viewBox="0 0 240 56" width="210" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="28" r="7" fill="none" stroke="#185FA5" stroke-width=".8"/>
+          <circle cx="18" cy="28" r="2.5" fill="#378ADD"/>
+          <line x1="18" y1="12" x2="18" y2="20" stroke="#0C447C" stroke-width=".6"/>
+          <line x1="18" y1="36" x2="18" y2="44" stroke="#0C447C" stroke-width=".6"/>
+          <line x1="4" y1="18" x2="12" y2="23" stroke="#0C447C" stroke-width=".6"/>
+          <line x1="32" y1="18" x2="24" y2="23" stroke="#185FA5" stroke-width=".6"/>
+          <line x1="4" y1="38" x2="12" y2="33" stroke="#0C447C" stroke-width=".6"/>
+          <line x1="32" y1="38" x2="24" y2="33" stroke="#185FA5" stroke-width=".6"/>
+          <circle cx="18" cy="10" r="2.5" fill="#185FA5"/>
+          <circle cx="18" cy="46" r="2.5" fill="#185FA5"/>
+          <circle cx="2" cy="15" r="2.5" fill="#185FA5"/>
+          <circle cx="34" cy="15" r="3" fill="#0C447C"/>
+          <circle cx="2" cy="41" r="2.5" fill="#185FA5"/>
+          <circle cx="34" cy="41" r="3" fill="#0C447C"/>
+          <text x="44" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#050A14" letter-spacing="-1">Neuro</text>
+          <path d="M111,28 L114,28 L116,24 L118,32 L120,21 L122,35 L124,24 L126,32 L128,28 L132,28" fill="none" stroke="#534AB7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="136" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="600" fill="#185FA5" letter-spacing="-1">IQ</text>
+        </svg>
+      </div>
+      <div class="do-label good">Light logo on light background</div>
+    </div>
+    <div class="do-card">
+      <div class="do-stage" style="background:#8B3A3A;">
+        <svg viewBox="0 0 240 56" width="210" xmlns="http://www.w3.org/2000/svg">
+          <text x="120" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#E6F1FB" text-anchor="middle" letter-spacing="-1" opacity=".35">Neuro  IQ</text>
+          <line x1="10" y1="8" x2="230" y2="48" stroke="#E24B4A" stroke-width="2"/>
+          <line x1="230" y1="8" x2="10" y2="48" stroke="#E24B4A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="do-label bad">Never on non-brand colored backgrounds</div>
+    </div>
+    <div class="do-card">
+      <div class="do-stage" style="background:#050A14;">
+        <svg viewBox="0 0 240 56" width="210" xmlns="http://www.w3.org/2000/svg">
+          <text x="120" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#E6F1FB" text-anchor="middle" letter-spacing="-1" opacity=".35">NeuroIQ</text>
+          <line x1="10" y1="8" x2="230" y2="48" stroke="#E24B4A" stroke-width="2"/>
+          <line x1="230" y1="8" x2="10" y2="48" stroke="#E24B4A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="do-label bad">Never remove the node mark or spindle</div>
+    </div>
+    <div class="do-card">
+      <div class="do-stage" style="background:#050A14;">
+        <svg viewBox="0 0 240 56" width="210" xmlns="http://www.w3.org/2000/svg">
+          <g transform="skewX(-18)">
+            <text x="60" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#E6F1FB" letter-spacing="-1" opacity=".35">Neuro</text>
+            <text x="166" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="600" fill="#378ADD" letter-spacing="-1" opacity=".35">IQ</text>
+          </g>
+          <line x1="10" y1="8" x2="230" y2="48" stroke="#E24B4A" stroke-width="2"/>
+          <line x1="230" y1="8" x2="10" y2="48" stroke="#E24B4A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="do-label bad">Never skew, stretch, or distort</div>
+    </div>
+    <div class="do-card">
+      <div class="do-stage" style="background:#050A14;">
+        <svg viewBox="0 0 240 56" width="210" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="28" r="7" fill="none" stroke="#E24B4A" stroke-width=".8"/>
+          <circle cx="18" cy="28" r="2.5" fill="#E24B4A" opacity=".6"/>
+          <text x="44" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="200" fill="#E24B4A" letter-spacing="-1">Neuro</text>
+          <path d="M111,28 L114,28 L116,24 L118,32 L120,21 L122,35 L124,24 L126,32 L128,28 L132,28" fill="none" stroke="#E24B4A" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="136" y="36" font-family="'Outfit',sans-serif" font-size="24" font-weight="600" fill="#E24B4A" letter-spacing="-1">IQ</text>
+          <line x1="10" y1="8" x2="230" y2="48" stroke="#E24B4A" stroke-width="2"/>
+          <line x1="230" y1="8" x2="10" y2="48" stroke="#E24B4A" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="do-label bad">Never recolor — including to single-color red, green, or black</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ================================================================ -->
+<!-- 08 APP UI LANGUAGE                                                 -->
+<!-- ================================================================ -->
+<div class="page section section-dark">
+  <div class="section-header">
+    <div class="section-num" style="color:var(--navy);">08</div>
+    <div class="section-title">App UI<br>Language</div>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="grid-2" style="gap:24px;">
+
+    <!-- Live mockup -->
+    <div style="border-radius:14px;overflow:hidden;border:0.5px solid rgba(255,255,255,0.07);">
+      <div class="app-header">
+        <svg viewBox="0 0 130 26" width="110" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="13" r="5.5" fill="none" stroke="#378ADD" stroke-width=".7"/>
+          <circle cx="9" cy="13" r="2" fill="#85B7EB"/>
+          <line x1="9" y1="3" x2="9" y2="7" stroke="#185FA5" stroke-width=".5"/>
+          <line x1="9" y1="19" x2="9" y2="23" stroke="#185FA5" stroke-width=".5"/>
+          <line x1="1" y1="7" x2="5" y2="10" stroke="#185FA5" stroke-width=".5"/>
+          <line x1="17" y1="7" x2="13" y2="10" stroke="#378ADD" stroke-width=".5"/>
+          <line x1="1" y1="19" x2="5" y2="16" stroke="#185FA5" stroke-width=".5"/>
+          <line x1="17" y1="19" x2="13" y2="16" stroke="#378ADD" stroke-width=".5"/>
+          <circle cx="9" cy="1" r="1.5" fill="#0C447C"/>
+          <circle cx="9" cy="25" r="1.5" fill="#0C447C"/>
+          <circle cx="1" cy="5" r="1.5" fill="#0C447C"/>
+          <circle cx="17" cy="5" r="2" fill="#185FA5"/>
+          <circle cx="1" cy="21" r="1.5" fill="#0C447C"/>
+          <circle cx="17" cy="21" r="2" fill="#185FA5"/>
+          <text x="23" y="17" font-family="'Outfit',sans-serif" font-size="14" font-weight="200" fill="#E6F1FB" letter-spacing="-.5">Neuro</text>
+          <path d="M73,13 L75,13 L76,10 L77,16 L78,8 L79,18 L80,11 L81,15 L82,13 L85,13" fill="none" stroke="#534AB7" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="87" y="17" font-family="'Outfit',sans-serif" font-size="14" font-weight="600" fill="#378ADD" letter-spacing="-.5">IQ</text>
+        </svg>
+        <div class="app-status">READY</div>
+      </div>
+      <div class="app-content">
+        <div class="session-card">
+          <div class="session-label">Active session</div>
+          <div class="session-val">7.5 <span>Hz · Theta</span></div>
+          <div style="display:flex;align-items:flex-end;gap:2px;height:36px;margin-top:8px;">
+            <div style="width:3px;background:var(--synapse);height:14px;border-radius:2px;opacity:.5;"></div>
+            <div style="width:3px;background:var(--synapse);height:22px;border-radius:2px;opacity:.65;"></div>
+            <div style="width:3px;background:var(--synapse);height:30px;border-radius:2px;opacity:.8;"></div>
+            <div style="width:3px;background:var(--synapse);height:24px;border-radius:2px;opacity:.7;"></div>
+            <div style="width:3px;background:var(--signal);height:36px;border-radius:2px;"></div>
+            <div style="width:3px;background:var(--synapse);height:28px;border-radius:2px;opacity:.75;"></div>
+            <div style="width:3px;background:var(--synapse);height:20px;border-radius:2px;opacity:.6;"></div>
+            <div style="width:3px;background:var(--synapse);height:32px;border-radius:2px;opacity:.8;"></div>
+            <div style="width:3px;background:var(--synapse);height:18px;border-radius:2px;opacity:.55;"></div>
+            <div style="width:3px;background:var(--synapse);height:26px;border-radius:2px;opacity:.7;"></div>
+            <!-- Pause gap — the spindle interval -->
+            <div style="width:8px;"></div>
+            <div style="width:3px;background:var(--spindle);height:14px;border-radius:2px;opacity:.4;"></div>
+            <div style="width:3px;background:var(--spindle);height:10px;border-radius:2px;opacity:.3;"></div>
+            <div style="width:3px;background:var(--spindle);height:8px;border-radius:2px;opacity:.2;"></div>
+            <!-- Next packet begins -->
+            <div style="width:8px;"></div>
+            <div style="width:3px;background:var(--synapse);height:16px;border-radius:2px;opacity:.55;"></div>
+            <div style="width:3px;background:var(--synapse);height:24px;border-radius:2px;opacity:.7;"></div>
+            <div style="width:3px;background:var(--synapse);height:34px;border-radius:2px;opacity:.85;"></div>
+          </div>
+          <div style="font-family:var(--font-mono);font-size:8px;color:var(--spindle);letter-spacing:1px;margin-top:4px;">↑ SPINDLE INTERVAL · ENCODING IN PROGRESS</div>
+        </div>
+        <div class="session-row">
+          <div class="mini-card">
+            <div class="mini-label">Dataset</div>
+            <div class="mini-val" style="font-size:12px;line-height:1.3;">Q4_Brief<br>.pdf</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">Duration</div>
+            <div class="mini-val">8:22</div>
+          </div>
+          <div class="mini-card">
+            <div class="mini-label">Passes</div>
+            <div class="mini-val">14<span style="font-size:11px;color:var(--synapse);">x</span></div>
+          </div>
+        </div>
+        <div style="padding:12px;background:#0D1829;border-radius:8px;border:0.5px solid rgba(29,158,117,0.28);">
+          <div class="mini-label" style="color:var(--recovery);margin-bottom:3px;">Last session</div>
+          <div class="complete-badge">Complete · Retention est. 94%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI principles -->
+    <div>
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:18px;">UI Design Principles</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="padding:18px;background:rgba(255,255,255,0.03);border-radius:10px;border:0.5px solid rgba(255,255,255,0.05);">
+          <div style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--mist);margin-bottom:4px;">Dark by default</div>
+          <div style="font-size:12px;color:var(--sky);line-height:1.6;">The app runs during sleep. Low stimulation, dark surfaces, no jarring whites before bed. Night mode is the only mode.</div>
+        </div>
+        <div style="padding:18px;background:rgba(255,255,255,0.03);border-radius:10px;border:0.5px solid rgba(255,255,255,0.05);">
+          <div style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--mist);margin-bottom:4px;">The pause is visible</div>
+          <div style="font-size:12px;color:var(--sky);line-height:1.6;">The waveform display shows data delivery gaps in Spindle Purple — the user can see the interval happening. The pause is not hidden, it is the hero of the UI.</div>
+        </div>
+        <div style="padding:18px;background:rgba(255,255,255,0.03);border-radius:10px;border:0.5px solid rgba(255,255,255,0.05);">
+          <div style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--mist);margin-bottom:4px;">Data is precise</div>
+          <div style="font-size:12px;color:var(--sky);line-height:1.6;">JetBrains Mono for all session data — Hz, duration, pass count, dataset ID. The user should feel they are operating precision equipment, not a wellness app.</div>
+        </div>
+        <div style="padding:18px;background:rgba(255,255,255,0.03);border-radius:10px;border:0.5px solid rgba(255,255,255,0.05);">
+          <div style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--mist);margin-bottom:4px;">Green means something</div>
+          <div style="font-size:12px;color:var(--sky);line-height:1.6;">Recovery Green appears only on positive outcomes. Every other UI element is blue. When green appears, the brain did something measurable. That restraint is the reward system.</div>
+        </div>
+        <div style="padding:18px;background:rgba(255,255,255,0.03);border-radius:10px;border:0.5px solid rgba(255,255,255,0.05);">
+          <div style="font-family:var(--font-display);font-size:14px;font-weight:500;color:var(--mist);margin-bottom:4px;">Minimal pre-sleep interaction</div>
+          <div style="font-size:12px;color:var(--sky);line-height:1.6;">Select dataset. Select frequency. Put the phone down. NeuroIQ runs the rest. The session setup flow should require no more than three taps.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="guide-footer">
+  <p>NeuroIQ — Brand Identity Guide · v2.0</p>
+  <p>The pause is where you learn.</p>
+  <p>Confidential · April 2026</p>
+</div>
+
+</body>
+</html>
