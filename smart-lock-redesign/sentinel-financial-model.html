@@ -1,0 +1,207 @@
+<title>Sentinel Node — Financial Model</title>
+<style>
+  :root{
+    --paper:#ffffff;--ground:#eef1f4;--panel:#f7f9fb;
+    --ink:#171a1f;--ink-2:#3d444d;--muted:#697079;--hair:#dde2e8;--hair-strong:#c7cdd5;
+    --copper:#a35d2a;--copper-2:#c07636;--copper-tint:#f3e7db;
+    --good:#2f7d5b;--warn:#9a7a1c;--crit:#c03a30;
+    --shadow:0 1px 2px rgba(20,25,32,.06),0 8px 30px rgba(20,25,32,.06);
+    --fdisplay:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --fbody:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --fmono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --paper:#171a1f;--ground:#101317;--panel:#1c2027;
+    --ink:#e9ecef;--ink-2:#c2c8cf;--muted:#8b929b;--hair:#282e36;--hair-strong:#39414b;
+    --copper:#cd8a4e;--copper-2:#e0a066;--copper-tint:#2a2119;
+    --good:#5cae86;--warn:#c9a63f;--crit:#e0665c;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.36);
+  }}
+  :root[data-theme="light"]{--paper:#fff;--ground:#eef1f4;--panel:#f7f9fb;--ink:#171a1f;--ink-2:#3d444d;--muted:#697079;--hair:#dde2e8;--hair-strong:#c7cdd5;--copper:#a35d2a;--copper-2:#c07636;--copper-tint:#f3e7db;--good:#2f7d5b;--warn:#9a7a1c;--crit:#c03a30;--shadow:0 1px 2px rgba(20,25,32,.06),0 8px 30px rgba(20,25,32,.06);}
+  :root[data-theme="dark"]{--paper:#171a1f;--ground:#101317;--panel:#1c2027;--ink:#e9ecef;--ink-2:#c2c8cf;--muted:#8b929b;--hair:#282e36;--hair-strong:#39414b;--copper:#cd8a4e;--copper-2:#e0a066;--copper-tint:#2a2119;--good:#5cae86;--warn:#c9a63f;--crit:#e0665c;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.36);}
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--fbody);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1160px;margin:0 auto;padding:40px 24px 72px;}
+  .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:8px;}
+  .eyebrow{font-family:var(--fmono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);font-weight:600;margin:0 0 8px;}
+  h1{font-family:var(--fdisplay);font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;margin:0;}
+  .sub{color:var(--ink-2);max-width:70ch;margin:10px 0 0;font-size:.98rem;}
+  .themed{font-family:var(--fmono);font-size:11px;background:var(--panel);border:1px solid var(--hair-strong);color:var(--ink-2);border-radius:999px;padding:7px 13px;cursor:pointer;letter-spacing:.05em;white-space:nowrap;}
+  .themed:hover{border-color:var(--copper);color:var(--ink);}
+
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:26px;margin-top:28px;align-items:start;}
+  .controls{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:22px;box-shadow:var(--shadow);position:sticky;top:16px;}
+  .grp{font-family:var(--fmono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--hair);}
+  .grp:first-child{margin-top:0;}
+  .ctl{margin-bottom:16px;}
+  .ctl label{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--ink-2);margin-bottom:7px;}
+  .ctl label b{font-family:var(--fmono);font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums;}
+  input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;background:var(--hair-strong);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--copper);cursor:pointer;border:3px solid var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.25);}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--copper);cursor:pointer;border:3px solid var(--panel);}
+  input[type=range]:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb,var(--copper) 40%,transparent);}
+
+  .headline{background:linear-gradient(160deg,color-mix(in srgb,var(--copper) 15%,var(--paper)),var(--paper));
+    border:1px solid color-mix(in srgb,var(--copper) 30%,var(--hair));border-radius:14px;padding:26px;box-shadow:var(--shadow);
+    display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .hl .l{font-family:var(--fmono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .hl .v{font-family:var(--fdisplay);font-weight:800;font-size:clamp(1.8rem,4vw,2.9rem);letter-spacing:-.025em;line-height:1;color:var(--copper);font-variant-numeric:tabular-nums;}
+  .hl .n{font-size:12px;color:var(--ink-2);margin-top:8px;}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px;}
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:11px;padding:16px;box-shadow:var(--shadow);}
+  .card .l{font-family:var(--fmono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .card .v{font-family:var(--fdisplay);font-weight:750;font-size:1.5rem;letter-spacing:-.015em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1;}
+  .card .v.good{color:var(--good);} .card .v.warn{color:var(--warn);}
+  .card .s{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  .flow{background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:22px;box-shadow:var(--shadow);margin-top:18px;}
+  .flow h3{font-family:var(--fdisplay);font-size:1.05rem;margin:0 0 4px;letter-spacing:-.01em;}
+  .flow .cap{font-size:12px;color:var(--muted);margin:0 0 18px;}
+  .bar{display:flex;align-items:center;gap:12px;margin:9px 0;font-size:12.5px;}
+  .bar .name{flex:0 0 172px;color:var(--ink-2);}
+  .bar .track{flex:1;height:22px;background:color-mix(in srgb,var(--ink) 6%,transparent);border-radius:5px;overflow:hidden;position:relative;}
+  .bar .fill{height:100%;border-radius:5px;transition:width .25s ease;}
+  .bar .fill.rev{background:linear-gradient(90deg,var(--good),color-mix(in srgb,var(--good) 70%,var(--copper)));}
+  .bar .fill.cost{background:linear-gradient(90deg,var(--crit),color-mix(in srgb,var(--crit) 60%,var(--warn)));}
+  .bar .fill.net{background:linear-gradient(90deg,var(--copper),var(--copper-2));}
+  .bar .amt{flex:0 0 118px;text-align:right;font-family:var(--fmono);font-size:12.5px;color:var(--ink);font-variant-numeric:tabular-nums;}
+
+  .note{font-size:12px;color:var(--muted);margin-top:20px;line-height:1.6;}
+  .note b{color:var(--ink-2);}
+  .caveat{background:var(--panel);border:1px solid var(--hair);border-left:3px solid var(--warn);border-radius:8px;padding:16px 18px;margin-top:18px;font-size:12px;color:var(--ink-2);}
+  .caveat b{color:var(--ink);}
+
+  @media (max-width:900px){.grid{grid-template-columns:1fr;}.controls{position:static;}.headline,.cards{grid-template-columns:1fr 1fr;}.bar .name{flex-basis:120px;}}
+  @media (max-width:560px){.cards,.headline{grid-template-columns:1fr;}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div>
+      <p class="eyebrow">Sentinel Node · REIT value model</p>
+      <h1>Spend on hardware, create capitalized value.</h1>
+    </div>
+    <button class="themed" id="themeBtn">◐ THEME</button>
+  </div>
+  <p class="sub">The REIT lever isn't cash payback — it's the cap rate. Every recurring dollar of NOI an owned access-and-sensing program adds is worth many dollars of enterprise value when capitalized. Drag the drivers; the model recomputes live. All figures illustrative and fully editable — replace defaults with NCSS actuals.</p>
+
+  <div class="grid">
+    <div class="controls">
+      <div class="grp">Deployment</div>
+      <div class="ctl"><label>Total units deployed <b><span id="dUnits">5,000</span></b></label><input type="range" id="units" min="500" max="30000" step="500" value="5000"></div>
+      <div class="ctl"><label>Occupancy <b><span id="dOcc">90</span>%</b></label><input type="range" id="occ" min="60" max="100" step="1" value="90"></div>
+      <div class="ctl"><label>Fee adoption (of occupied) <b><span id="dAdopt">80</span>%</b></label><input type="range" id="adopt" min="30" max="100" step="5" value="80"></div>
+
+      <div class="grp">Recurring economics ($/yr)</div>
+      <div class="ctl"><label>Monthly access/protection fee <b>$<span id="dFee">6.00</span></b></label><input type="range" id="fee" min="2" max="12" step="0.5" value="6"></div>
+      <div class="ctl"><label>Owned-stack opex / unit <b>$<span id="dOpex">8</span></b></label><input type="range" id="opex" min="2" max="20" step="1" value="8"></div>
+      <div class="ctl"><label>Op. savings / unit (battery, truck-rolls) <b>$<span id="dSav">4</span></b></label><input type="range" id="sav" min="0" max="15" step="1" value="4"></div>
+
+      <div class="grp">Capital</div>
+      <div class="ctl"><label>Capex / unit (hardware + install) <b>$<span id="dCapex">150</span></b></label><input type="range" id="capex" min="80" max="300" step="5" value="150"></div>
+      <div class="ctl"><label>Platform build (one-time) <b>$<span id="dDev">300k</span></b></label><input type="range" id="dev" min="0" max="1000000" step="25000" value="300000"></div>
+
+      <div class="grp">Valuation</div>
+      <div class="ctl"><label>Exit cap rate <b><span id="dCap">5.5</span>%</b></label><input type="range" id="cap" min="4" max="8" step="0.1" value="5.5"></div>
+      <div class="ctl"><label>Discount rate <b><span id="dDisc">9</span>%</b></label><input type="range" id="disc" min="6" max="14" step="0.5" value="9"></div>
+      <div class="ctl"><label>Horizon to IPO <b><span id="dHz">5</span> yr</b></label><input type="range" id="hz" min="3" max="10" step="1" value="5"></div>
+    </div>
+
+    <div>
+      <div class="headline">
+        <div class="hl"><div class="l">Implied valuation lift · NOI ÷ cap</div><div class="v" id="oVal">$0</div><div class="n" id="oValN">recurring NOI capitalized at the exit cap rate</div></div>
+        <div class="hl"><div class="l">Value created per $1 of capex</div><div class="v" id="oMult">0×</div><div class="n">enterprise value created ÷ total capital deployed</div></div>
+      </div>
+
+      <div class="cards">
+        <div class="card"><div class="l">Annual NOI uplift</div><div class="v good" id="oNoi">$0</div><div class="s">stabilized, recurring</div></div>
+        <div class="card"><div class="l">Total capital</div><div class="v" id="oCapex">$0</div><div class="s" id="oCapexN">hardware + install + platform</div></div>
+        <div class="card"><div class="l">Cash payback</div><div class="v warn" id="oPay">0 yr</div><div class="s">on NOI alone, pre-cap-rate</div></div>
+        <div class="card"><div class="l" id="oNpvL">NPV · 5 yr + terminal</div><div class="v" id="oNpv">$0</div><div class="s">incl. capitalized exit value</div></div>
+      </div>
+
+      <div class="flow">
+        <h3>Annual NOI bridge</h3>
+        <p class="cap">Gross ancillary revenue, plus operational savings, less the owned-stack's own running cost.</p>
+        <div class="bar"><div class="name">Ancillary fee revenue</div><div class="track"><div class="fill rev" id="bRev"></div></div><div class="amt" id="aRev">$0</div></div>
+        <div class="bar"><div class="name">Operational savings</div><div class="track"><div class="fill rev" id="bSav"></div></div><div class="amt" id="aSav">$0</div></div>
+        <div class="bar"><div class="name">Owned-stack opex</div><div class="track"><div class="fill cost" id="bOpex"></div></div><div class="amt" id="aOpex">$0</div></div>
+        <div class="bar"><div class="name"><b>Net NOI uplift / yr</b></div><div class="track"><div class="fill net" id="bNet"></div></div><div class="amt" id="aNet">$0</div></div>
+      </div>
+
+      <p class="note"><b>Why the headline is the point.</b> A storage REIT is valued on NOI at a cap rate, so at a <span id="nCap">5.5</span>% cap every $1/yr of recurring NOI adds ≈ $<span id="nMult">18</span> of asset value — immediately, at the multiple, not over a payback period. That's why a program with a multi-year <em>cash</em> payback still creates value many times its capex the moment the NOI is stabilized and underwritten. Owning the stack (vs. renting Nokē / DaVinci / Storage Defender) is what lets ~100% of the fee fall to NOI instead of leaking to a vendor.</p>
+
+      <div class="caveat"><b>Assumptions, not promises.</b> Defaults are illustrative placeholders — a ~$6/mo fee tracks Nokē's published tech fee; occupancy, adoption, capex, and opex must be replaced with NCSS actuals and quoted BOM/install. NPV includes a terminal value equal to the capitalized NOI discounted from the horizon year; it excludes financing, taxes, deployment ramp timing, and churn beyond the adoption haircut. Not investment advice — pressure-test with your CFO before underwriting.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement, tb=document.getElementById('themeBtn');
+  function cur(){var a=root.getAttribute('data-theme');return a?a:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');}
+  tb.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',n);tb.textContent=(n==='dark'?'◐ LIGHT':'◑ DARK');});
+
+  var el=function(id){return document.getElementById(id);};
+  var I={units:el('units'),occ:el('occ'),adopt:el('adopt'),fee:el('fee'),opex:el('opex'),sav:el('sav'),capex:el('capex'),dev:el('dev'),cap:el('cap'),disc:el('disc'),hz:el('hz')};
+  function money(n){var a=Math.abs(n);
+    if(a>=1e6) return (n<0?'-':'')+'$'+(a/1e6).toFixed(a>=1e7?1:2)+'M';
+    if(a>=1e3) return (n<0?'-':'')+'$'+Math.round(a/1e3)+'k';
+    return (n<0?'-':'')+'$'+Math.round(a);}
+  function money0(n){return '$'+Math.round(n).toLocaleString('en-US');}
+
+  function calc(){
+    var units=+I.units.value, occ=+I.occ.value/100, adopt=+I.adopt.value/100,
+        fee=+I.fee.value, opexU=+I.opex.value, savU=+I.sav.value,
+        capexU=+I.capex.value, dev=+I.dev.value, cap=+I.cap.value/100,
+        disc=+I.disc.value/100, hz=+I.hz.value;
+
+    var paying=Math.round(units*occ*adopt);
+    var rev=paying*fee*12;
+    var sav=units*savU;
+    var opex=units*opexU;
+    var noi=rev+sav-opex;
+    var capexTot=units*capexU+dev;
+    var val=noi/cap;
+    var mult=capexTot>0?val/capexTot:0;
+    var payback=noi>0?capexTot/noi:Infinity;
+    var af=(1-Math.pow(1+disc,-hz))/disc;
+    var pvBen=noi*af;
+    var termPV=val/Math.pow(1+disc,hz);
+    var npv=-capexTot+pvBen+termPV;
+
+    // labels on controls
+    el('dUnits').textContent=units.toLocaleString('en-US');
+    el('dOcc').textContent=I.occ.value; el('dAdopt').textContent=I.adopt.value;
+    el('dFee').textContent=(+I.fee.value).toFixed(2); el('dOpex').textContent=I.opex.value; el('dSav').textContent=I.sav.value;
+    el('dCapex').textContent=I.capex.value; el('dDev').textContent=money(dev).replace('$','$');
+    el('dCap').textContent=(+I.cap.value).toFixed(1); el('dDisc').textContent=I.disc.value; el('dHz').textContent=I.hz.value;
+
+    // outputs
+    el('oVal').textContent=money(val);
+    el('oValN').textContent=money0(noi)+' NOI ÷ '+(cap*100).toFixed(1)+'% cap';
+    el('oMult').textContent=mult.toFixed(1)+'×';
+    el('oNoi').textContent=money(noi);
+    el('oCapex').textContent=money(capexTot);
+    el('oCapexN').textContent=money0(units*capexU)+' hw+install · '+money0(dev)+' platform';
+    el('oPay').textContent=isFinite(payback)?payback.toFixed(1)+' yr':'—';
+    el('oNpvL').textContent='NPV · '+hz+' yr + terminal';
+    el('oNpv').textContent=money(npv);
+    el('oNpv').className='v '+(npv>=0?'good':'warn');
+
+    el('nCap').textContent=(cap*100).toFixed(1);
+    el('nMult').textContent=(1/cap).toFixed(0);
+
+    // bridge bars (scale to gross revenue as 100%)
+    var base=Math.max(rev,1);
+    el('bRev').style.width=(100*rev/base)+'%'; el('aRev').textContent=money(rev);
+    el('bSav').style.width=(100*sav/base)+'%'; el('aSav').textContent=money(sav);
+    el('bOpex').style.width=(100*opex/base)+'%'; el('aOpex').textContent='-'+money(opex);
+    el('bNet').style.width=(100*Math.max(noi,0)/base)+'%'; el('aNet').textContent=money(noi);
+  }
+  Object.keys(I).forEach(function(k){I[k].addEventListener('input',calc);});
+  calc();
+})();
+</script>
