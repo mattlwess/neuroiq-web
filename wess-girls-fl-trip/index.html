@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wess Girls' Florida Trip 2026</title>
+<meta name="description" content="Sunshine, castles, thrill rides and Gulf breezes — the best moments from the Wess girls' 2026 Florida adventure across Walt Disney World, Universal Orlando, and The Resort at Longboat Key Club.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#26303b; --ink-soft:#55606c; --paper:#fffaf3; --paper-2:#fff4e6;
+  --sun:#ff9e2c; --sun-deep:#ff7a00; --coral:#ff5d73; --sky:#37b6e9;
+  --sea:#0fa8a0; --sand:#f3e2c7; --gold:#e7b93c;
+  --disney-a:#2a1a5e; --disney-b:#5b3fb0; --disney-c:#c9a2ff; --disney-gold:#ffd66b;
+  --uni-a:#0b1533; --uni-b:#1746b8; --uni-c:#39d0ff; --uni-warn:#ffcf3f;
+  --lbk-a:#065a63; --lbk-b:#0fa8a0; --lbk-c:#ffe1a8; --lbk-sand:#f6ecd6;
+  --shadow:0 18px 50px rgba(38,48,59,.16);
+  --radius:26px;
+  --f-display:'Fredoka',system-ui,sans-serif;
+  --f-body:'Nunito',system-ui,sans-serif;
+  --f-hand:'Caveat',cursive;
+  --max:1160px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.eyebrow{font-family:var(--f-display);font-weight:600;letter-spacing:.22em;text-transform:uppercase;font-size:12px}
+
+/* ---------- NAV ---------- */
+nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,5vw,40px);background:rgba(255,250,243,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(38,48,59,.07)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:19px}
+.brand .dot{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 32% 30%,#ffd98a,var(--sun-deep));
+  box-shadow:0 0 0 4px rgba(255,158,44,.18)}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{font-family:var(--f-display);font-weight:500;font-size:14px;padding:8px 14px;border-radius:100px;color:var(--ink-soft);transition:.2s}
+.nav-links a:hover{background:var(--paper-2);color:var(--ink)}
+.nav-toggle{display:none;background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink)}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:72px 0 120px;text-align:center;overflow:hidden;
+  background:linear-gradient(180deg,#ffe9b8 0%,#ffd18a 32%,#ffb0a0 66%,#8fd8e6 100%)}
+.hero .sun{position:absolute;top:44px;left:50%;transform:translateX(-50%);width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,#fff5cf 0%,#ffd15a 55%,rgba(255,209,90,0) 72%);filter:blur(2px);animation:bob 6s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,-10px)}}
+.hero-inner{position:relative;z-index:3}
+.hero .kicker{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.8);
+  padding:7px 16px;border-radius:100px;font-family:var(--f-display);font-weight:600;font-size:13px;letter-spacing:.04em;margin-bottom:22px}
+.hero h1{font-family:var(--f-display);font-weight:700;line-height:.98;letter-spacing:-.02em;
+  font-size:clamp(44px,9vw,104px);color:#fff;text-shadow:0 6px 0 rgba(255,122,0,.28),0 14px 30px rgba(38,48,59,.2)}
+.hero h1 .yr{display:block;color:var(--disney-a);text-shadow:0 3px 0 rgba(255,255,255,.5)}
+.hero .sub{font-size:clamp(16px,2.4vw,21px);max-width:620px;margin:20px auto 0;color:#3a2a12;font-weight:600}
+.hero .hand{font-family:var(--f-hand);font-size:clamp(24px,4vw,34px);color:var(--coral);transform:rotate(-3deg);margin-top:10px}
+.chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:34px}
+.chip{display:inline-flex;align-items:center;gap:9px;background:#fff;padding:11px 20px;border-radius:100px;
+  font-family:var(--f-display);font-weight:600;font-size:15px;box-shadow:var(--shadow);transition:.2s}
+.chip:hover{transform:translateY(-3px)}
+.chip svg{width:20px;height:20px}
+.waves{position:absolute;left:0;right:0;bottom:-1px;z-index:2;line-height:0}
+.palm{position:absolute;bottom:52px;z-index:2;width:clamp(90px,14vw,170px);opacity:.92}
+.palm.l{left:2%;transform:scaleX(-1)}
+.palm.r{right:2%}
+
+/* ---------- TRIP STATS ---------- */
+.stats{background:var(--disney-a);color:#fff}
+.stats .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:34px 0}
+.stat{text-align:center;padding:8px}
+.stat .n{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1;
+  background:linear-gradient(120deg,#ffd66b,#ff9e2c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .l{font-size:13px;color:#c9c2e8;margin-top:6px;font-weight:600}
+
+/* ---------- INTRO ---------- */
+.intro{text-align:center;padding:84px 0 40px}
+.intro h2{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.5vw,44px);letter-spacing:-.01em}
+.intro p{max-width:640px;margin:16px auto 0;color:var(--ink-soft);font-size:17px}
+
+/* ---------- DESTINATION SECTIONS ---------- */
+.dest{padding:70px 0;position:relative}
+.dest .wrap{position:relative;z-index:2}
+.dest-head{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-bottom:14px}
+.emblem{width:96px;height:96px;flex:0 0 auto;filter:drop-shadow(0 10px 22px rgba(38,48,59,.28))}
+.dest-title h2{font-family:var(--f-display);font-weight:700;font-size:clamp(30px,5vw,52px);line-height:1;letter-spacing:-.02em}
+.dest-title .loc{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-display);font-weight:600;font-size:14px;
+  margin-top:10px;padding:5px 13px;border-radius:100px}
+.dest-lead{font-size:18px;max-width:720px;margin:8px 0 26px}
+.dest-lead b{font-weight:800}
+
+/* fun facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:26px 0 36px}
+.fact{background:#fff;border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(38,48,59,.08);
+  border:1px solid rgba(38,48,59,.05);transition:.25s;position:relative;overflow:hidden}
+.fact:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(38,48,59,.14)}
+.fact .ico{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;margin-bottom:12px;color:#fff}
+.fact h4{font-family:var(--f-display);font-weight:600;font-size:17px;margin-bottom:4px}
+.fact p{font-size:14px;color:var(--ink-soft);margin:0}
+.did{display:inline-flex;gap:8px;align-items:flex-start;font-family:var(--f-hand);font-size:22px;line-height:1.25;
+  padding:14px 20px;border-radius:16px;margin-bottom:30px}
+.did svg{width:22px;height:22px;flex:0 0 auto;margin-top:4px}
+
+/* gallery */
+.gal-label{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:600;font-size:15px;
+  letter-spacing:.03em;margin-bottom:16px;text-transform:uppercase}
+.gal-label::after{content:"";flex:1;height:2px;border-radius:2px;background:currentColor;opacity:.18}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;grid-auto-flow:dense}
+.shot{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:var(--ph-bg,#eee);
+  box-shadow:0 8px 22px rgba(38,48,59,.12);cursor:pointer;transition:.25s}
+.shot:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 16px 34px rgba(38,48,59,.2)}
+.shot.big{grid-column:span 6}
+.shot.med{grid-column:span 4}
+.shot.tall{grid-column:span 4;aspect-ratio:3/4}
+.shot.wide{grid-column:span 8}
+.shot img{width:100%;height:100%;object-fit:cover}
+/* placeholder look */
+.shot.ph{display:grid;place-items:center;text-align:center;color:#fff;
+  background:var(--ph-bg);border:2px dashed rgba(255,255,255,.55)}
+.shot.ph .cam{width:40px;height:40px;opacity:.9;margin:0 auto 8px}
+.shot.ph span{font-family:var(--f-display);font-weight:600;font-size:13px;opacity:.95;padding:0 12px}
+.shot .cap{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;color:#fff;font-family:var(--f-display);
+  font-weight:600;font-size:14px;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent);opacity:0;transition:.2s;pointer-events:none}
+.shot:not(.ph):hover .cap{opacity:1}
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(20,16,30,.9);display:none;align-items:center;justify-content:center;padding:24px}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:86vh;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lb .x{position:absolute;top:20px;right:24px;background:rgba(255,255,255,.14);border:none;color:#fff;width:46px;height:46px;
+  border-radius:50%;font-size:22px;cursor:pointer;display:grid;place-items:center}
+.lb .nav-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;
+  width:52px;height:52px;border-radius:50%;font-size:26px;cursor:pointer}
+.lb .prev{left:20px}.lb .next{right:20px}
+.lb .cap{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#fff;font-family:var(--f-display);font-weight:600}
+
+/* ---------- ADD PHOTOS BANNER ---------- */
+.howto{background:linear-gradient(120deg,#fff4e6,#ffe9d0);border:1px dashed var(--sun-deep);border-radius:var(--radius);
+  padding:26px 28px;margin:20px 0;display:flex;gap:18px;align-items:flex-start}
+.howto svg{width:34px;height:34px;flex:0 0 auto;color:var(--sun-deep)}
+.howto h4{font-family:var(--f-display);font-weight:700;font-size:18px;margin-bottom:4px}
+.howto p{font-size:14.5px;color:var(--ink-soft);margin:0}
+.howto code{background:#fff;border-radius:6px;padding:1px 7px;font-size:13px}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--disney-a);color:#fff;text-align:center;padding:60px 20px 46px;margin-top:40px}
+footer .heart{font-family:var(--f-hand);font-size:34px;color:#ffb0a0}
+footer h3{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,4vw,38px);margin:6px 0 10px}
+footer p{color:#c9c2e8;max-width:520px;margin:0 auto;font-size:15px}
+footer .mini{margin-top:26px;font-size:12px;color:#8f88b8}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:760px){
+  .nav-links{position:fixed;inset:64px 12px auto 12px;flex-direction:column;background:#fff;border-radius:20px;
+    padding:12px;box-shadow:var(--shadow);display:none}
+  .nav-links.open{display:flex}
+  .nav-toggle{display:block}
+  .stats .grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .shot.big,.shot.wide{grid-column:span 12}
+  .shot.med,.shot.tall{grid-column:span 6}
+  .palm{display:none}
+  .dest-head{gap:16px}
+  .emblem{width:72px;height:72px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <a class="brand" href="#top"><span class="dot"></span> Wess Girls · FL '26</a>
+  <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+  <div class="nav-links" id="navlinks">
+    <a href="#disney">Disney</a>
+    <a href="#universal">Universal</a>
+    <a href="#longboat">Longboat Key</a>
+    <a href="#memories">Memories</a>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="sun"></div>
+  <!-- palms -->
+  <svg class="palm l" viewBox="0 0 120 200" aria-hidden="true"><path d="M60 200 C58 150 56 110 58 92" stroke="#6b4a2b" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M58 92 C30 70 12 74 2 86 C24 78 44 84 58 92" fill="#2e9e5b"/><path d="M58 92 C40 58 18 50 4 52 C30 54 46 70 58 92" fill="#37b56a"/><path d="M58 92 C64 56 86 40 108 42 C82 48 68 66 58 92" fill="#2e9e5b"/><path d="M58 92 C82 66 108 66 118 78 C96 72 74 78 58 92" fill="#37b56a"/><circle cx="58" cy="92" r="7" fill="#e7b93c"/></svg>
+  <svg class="palm r" viewBox="0 0 120 200" aria-hidden="true"><path d="M60 200 C58 150 56 110 58 92" stroke="#6b4a2b" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M58 92 C30 70 12 74 2 86 C24 78 44 84 58 92" fill="#2e9e5b"/><path d="M58 92 C40 58 18 50 4 52 C30 54 46 70 58 92" fill="#37b56a"/><path d="M58 92 C64 56 86 40 108 42 C82 48 68 66 58 92" fill="#2e9e5b"/><path d="M58 92 C82 66 108 66 118 78 C96 72 74 78 58 92" fill="#37b56a"/><circle cx="58" cy="92" r="7" fill="#e7b93c"/></svg>
+
+  <div class="wrap hero-inner">
+    <span class="kicker">☀️ Sunshine State Adventure</span>
+    <h1>The Wess Girls'<br>Florida Trip<span class="yr">2026</span></h1>
+    <p class="sub">Castles, thrill rides, and Gulf-coast sunsets — the best moments from an unforgettable week in Florida.</p>
+    <p class="hand">a few of our very favorite memories ↓</p>
+    <div class="chips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V11l8-6 8 6v9" stroke="#5b3fb0" stroke-width="2" stroke-linejoin="round"/><path d="M12 5V2" stroke="#5b3fb0" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="2" r="1.4" fill="#ff5d73"/></svg> Walt Disney World</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#1746b8" stroke-width="2"/><ellipse cx="12" cy="12" rx="11" ry="4" stroke="#37b6e9" stroke-width="2"/></svg> Universal Orlando</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none"><path d="M3 18h18" stroke="#0fa8a0" stroke-width="2" stroke-linecap="round"/><path d="M6 18c2-5 3-8 6-11 3 3 4 6 6 11" stroke="#0fa8a0" stroke-width="2" fill="none"/><circle cx="17" cy="6" r="2.5" fill="#ff9e2c"/></svg> Longboat Key Club</span>
+    </div>
+  </div>
+
+  <div class="waves"><svg viewBox="0 0 1440 90" preserveAspectRatio="none" style="width:100%;height:90px"><path d="M0 40 C240 90 480 0 720 30 C960 60 1200 90 1440 40 L1440 90 L0 90Z" fill="#fffaf3"/></svg></div>
+</header>
+
+<!-- ===================== STATS ===================== -->
+<section class="stats">
+  <div class="wrap">
+    <div class="grid">
+      <div class="stat reveal"><div class="n">3</div><div class="l">Iconic destinations</div></div>
+      <div class="stat reveal"><div class="n">7</div><div class="l">Days of sunshine</div></div>
+      <div class="stat reveal"><div class="n">∞</div><div class="l">Memories made</div></div>
+      <div class="stat reveal"><div class="n">1</div><div class="l">Trip we'll never forget</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INTRO ===================== -->
+<section class="intro wrap">
+  <h2 class="reveal">Three stops. One amazing week. 🌴</h2>
+  <p class="reveal">From the magic of the Disney castle to the roar of Universal's coasters to the calm blue Gulf at Longboat Key — here's the trip, told in our favorite photos and a few fun facts from each place we went.</p>
+</section>
+
+<!-- ===================== DISNEY ===================== -->
+<section class="dest" id="disney" style="--accent:#5b3fb0;--accent-2:#c9a2ff;background:linear-gradient(180deg,#f6f1ff, #efe8ff)">
+  <div class="wrap">
+    <div class="dest-head reveal">
+      <!-- Original fairytale-castle emblem (not the Disney trademark) -->
+      <svg class="emblem" viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="dsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b3fb0"/><stop offset="1" stop-color="#2a1a5e"/></linearGradient></defs>
+        <circle cx="50" cy="50" r="48" fill="url(#dsky)"/>
+        <g fill="#ffd66b"><path d="M4 10l1.6 3.2 3.4.5-2.5 2.4.6 3.5-3.1-1.7-3.1 1.7.6-3.5L1 13.7l3.4-.5z" transform="translate(16 12) scale(.5)"/></g>
+        <circle cx="74" cy="26" r="1.6" fill="#fff"/><circle cx="30" cy="22" r="1.3" fill="#fff"/><circle cx="66" cy="40" r="1" fill="#fff"/>
+        <g fill="#efe8ff"><rect x="34" y="52" width="8" height="26"/><rect x="58" y="52" width="8" height="26"/><rect x="44" y="44" width="12" height="34"/></g>
+        <g fill="#c9a2ff"><path d="M38 52l-4-10-4 10z"/><path d="M62 52l4-10 4 10z" transform="translate(-4 0)"/><path d="M50 44l-6-12-6 12z" transform="translate(6 0)"/></g>
+        <g fill="#ff5d73"><circle cx="38" cy="40" r="1.6"/><circle cx="62" cy="40" r="1.6"/><circle cx="50" cy="30" r="1.8"/></g>
+        <rect x="47" y="66" width="6" height="12" rx="3" fill="#5b3fb0"/>
+      </svg>
+      <div class="dest-title">
+        <h2>Walt Disney World</h2>
+        <div class="loc" style="background:#efe4ff;color:#5b3fb0">📍 Lake Buena Vista, Orlando</div>
+      </div>
+    </div>
+    <p class="dest-lead reveal">Where the whole trip felt like a storybook. We wished on the castle, chased characters, and stayed for the fireworks. <b>The most magical day of the week.</b></p>
+
+    <div class="facts">
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#5b3fb0,#c9a2ff)">🏰</div><h4>The Castle</h4><p>Cinderella Castle stands 189 ft tall and has 27 towers — but not a single elevator inside!</p></div>
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#5b3fb0,#c9a2ff)">🎆</div><h4>Fireworks Nightly</h4><p>The evening castle show lights up the sky with projections, lasers and hundreds of shells.</p></div>
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#5b3fb0,#c9a2ff)">🌍</div><h4>Bigger Than a City</h4><p>Disney World spans about 25,000 acres — roughly the size of San Francisco.</p></div>
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#5b3fb0,#c9a2ff)">🍦</div><h4>Dole Whip &amp; Treats</h4><p>The famous pineapple Dole Whip is a park tradition — a must every single visit.</p></div>
+    </div>
+    <div class="did reveal" style="background:#efe4ff;color:#5b3fb0"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5L12 21l-5 2.6 1-5.5-4-3.9 5.5-.8z" fill="#ffd66b" stroke="#5b3fb0" stroke-width="1.2"/></svg> Fun fact: cast members are trained to always point with two fingers — never just one!</div>
+
+    <div class="gal-label" style="color:#5b3fb0">📸 Disney Favorites</div>
+    <div class="gallery" data-album="Walt Disney World"
+         style="--ph-bg:linear-gradient(135deg,#5b3fb0,#2a1a5e)">
+      <div class="shot ph big"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/><path d="M8 7l1.5-2.5h5L16 7" stroke="#fff" stroke-width="1.6"/></svg><span>Castle photo goes here</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Character meet</span></div></div>
+      <div class="shot ph tall"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Add a portrait</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Fireworks night</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Add a photo</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== UNIVERSAL ===================== -->
+<section class="dest" id="universal" style="--accent:#1746b8;--accent-2:#39d0ff;background:linear-gradient(180deg,#0b1533,#0e1c46);color:#eaf1ff">
+  <div class="wrap">
+    <div class="dest-head reveal">
+      <!-- Original ringed-globe emblem (not the Universal trademark) -->
+      <svg class="emblem" viewBox="0 0 100 100" aria-hidden="true">
+        <defs><radialGradient id="uglobe" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#39d0ff"/><stop offset="1" stop-color="#1746b8"/></radialGradient></defs>
+        <circle cx="50" cy="50" r="30" fill="url(#uglobe)"/>
+        <g stroke="#cfeaff" stroke-width="1.2" fill="none" opacity=".7"><ellipse cx="50" cy="50" rx="30" ry="12"/><ellipse cx="50" cy="50" rx="18" ry="30"/><line x1="20" y1="50" x2="80" y2="50"/></g>
+        <ellipse cx="50" cy="50" rx="46" ry="16" fill="none" stroke="#ffcf3f" stroke-width="4" transform="rotate(-20 50 50)"/>
+        <ellipse cx="50" cy="50" rx="46" ry="16" fill="none" stroke="#ff8a3f" stroke-width="1.4" transform="rotate(-20 50 50)" opacity=".8"/>
+      </svg>
+      <div class="dest-title">
+        <h2>Universal Orlando</h2>
+        <div class="loc" style="background:rgba(57,208,255,.16);color:#39d0ff">📍 Universal Blvd, Orlando</div>
+      </div>
+    </div>
+    <p class="dest-lead reveal" style="color:#cdd9f7">Adrenaline day! Wizards, coasters, and movie worlds you can walk right into. <b style="color:#fff">We screamed on every ride — twice.</b></p>
+
+    <div class="facts">
+      <div class="fact reveal" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)"><div class="ico" style="background:linear-gradient(135deg,#1746b8,#39d0ff)">⚡</div><h4>Wizarding World</h4><p>Sip Butterbeer and wander Diagon Alley &amp; Hogsmeade — connected by the Hogwarts Express.</p><style>#universal .fact h4{color:#fff}#universal .fact p{color:#b9c6ea}</style></div>
+      <div class="fact reveal" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)"><div class="ico" style="background:linear-gradient(135deg,#1746b8,#39d0ff)">🎢</div><h4>Coaster Country</h4><p>Some Universal coasters hit 65+ mph — hold on tight and keep your hands up!</p></div>
+      <div class="fact reveal" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)"><div class="ico" style="background:linear-gradient(135deg,#1746b8,#39d0ff)">🎬</div><h4>Movies, Real</h4><p>Ride-throughs put you inside your favorite films with 3D and giant sets.</p></div>
+      <div class="fact reveal" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)"><div class="ico" style="background:linear-gradient(135deg,#1746b8,#39d0ff)">🧈</div><h4>Butterbeer</h4><p>Frozen, cold, or hot — millions of cups are served every year. Frozen wins.</p></div>
+    </div>
+    <div class="did reveal" style="background:rgba(57,208,255,.14);color:#bfeaff"><svg viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h6l-1 8 9-12h-6z" fill="#ffcf3f"/></svg> Fun fact: wave your interactive wand at the right shop window and you can cast "spells" all over the park!</div>
+
+    <div class="gal-label" style="color:#39d0ff">📸 Universal Favorites</div>
+    <div class="gallery" data-album="Universal Orlando" style="--ph-bg:linear-gradient(135deg,#1746b8,#0b1533)">
+      <div class="shot ph wide"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/><path d="M8 7l1.5-2.5h5L16 7" stroke="#fff" stroke-width="1.6"/></svg><span>Wizarding World photo here</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>On a ride</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Butterbeer!</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Add a photo</span></div></div>
+      <div class="shot ph tall"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Add a portrait</span></div></div>
+      <div class="shot ph wide"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Group shot</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LONGBOAT KEY ===================== -->
+<section class="dest" id="longboat" style="--accent:#0fa8a0;--accent-2:#ffe1a8;background:linear-gradient(180deg,#e6f7f4,#d7f0ec)">
+  <div class="wrap">
+    <div class="dest-head reveal">
+      <!-- Original palm-sun-waves crest (not the resort trademark) -->
+      <svg class="emblem" viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="lbksky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fe3dd"/><stop offset="1" stop-color="#0fa8a0"/></linearGradient></defs>
+        <circle cx="50" cy="50" r="48" fill="url(#lbksky)"/>
+        <circle cx="50" cy="40" r="13" fill="#ffd98a"/>
+        <g stroke="#065a63" stroke-width="3.5" fill="none" stroke-linecap="round"><path d="M50 62c-2-10-2-16 0-22"/></g>
+        <g fill="#0b6e5f"><path d="M50 40c-10-8-20-6-26 0 8-3 16-2 26 0z"/><path d="M50 40c10-8 20-6 26 0-8-3-16-2-26 0z"/><path d="M50 40c-7-9-6-19 0-25-2 8 0 16 0 25z" transform="translate(0 2)"/></g>
+        <g stroke="#065a63" stroke-width="3" fill="none" stroke-linecap="round"><path d="M22 74c5-5 9-5 14 0s9 5 14 0 9-5 14 0 9 5 14 0"/><path d="M22 82c5-5 9-5 14 0s9 5 14 0 9-5 14 0 9 5 14 0" opacity=".6"/></g>
+      </svg>
+      <div class="dest-title">
+        <h2>The Resort at Longboat Key Club</h2>
+        <div class="loc" style="background:#c9efe9;color:#065a63">📍 Longboat Key, Gulf Coast</div>
+      </div>
+    </div>
+    <p class="dest-lead reveal">After the theme-park thrills, pure calm: powder-soft sand, palm shade, and Gulf sunsets. <b>The perfect way to end the trip.</b></p>
+
+    <div class="facts">
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#0fa8a0,#065a63)">🏖️</div><h4>Powdery Beaches</h4><p>The Gulf shore here is famous for soft, quartz-white sand and warm, gentle water.</p></div>
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#0fa8a0,#065a63)">🌅</div><h4>Sunset Side</h4><p>Longboat Key faces west — front-row seats to the Gulf of Mexico sunset every evening.</p></div>
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#0fa8a0,#065a63)">⛳</div><h4>Resort Life</h4><p>The club is known for golf, tennis, and a marina tucked along a barrier island.</p></div>
+      <div class="fact reveal"><div class="ico" style="background:linear-gradient(135deg,#0fa8a0,#065a63)">🐬</div><h4>Dolphin Waters</h4><p>Bottlenose dolphins are a common sight playing just offshore in Sarasota Bay.</p></div>
+    </div>
+    <div class="did reveal" style="background:#c9efe9;color:#065a63"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" fill="#ff9e2c"/><g stroke="#ff9e2c" stroke-width="2" stroke-linecap="round"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></g></svg> Fun fact: Longboat Key is a barrier island about 10 miles long — but only a few blocks wide!</div>
+
+    <div class="gal-label" style="color:#065a63">📸 Longboat Key Favorites</div>
+    <div class="gallery" data-album="Longboat Key Club" style="--ph-bg:linear-gradient(135deg,#0fa8a0,#065a63)">
+      <div class="shot ph big"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/><path d="M8 7l1.5-2.5h5L16 7" stroke="#fff" stroke-width="1.6"/></svg><span>Beach + sunset photo here</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Toes in the sand</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Poolside</span></div></div>
+      <div class="shot ph med"><div><svg class="cam" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="13.5" r="3.5" stroke="#fff" stroke-width="1.6"/></svg><span>Add a photo</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW TO ADD PHOTOS ===================== -->
+<section class="wrap" id="memories">
+  <div class="howto reveal">
+    <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="13.5" r="3.6" stroke="currentColor" stroke-width="1.7"/><path d="M8 7l1.5-2.5h5L16 7" stroke="currentColor" stroke-width="1.7"/></svg>
+    <div>
+      <h4>Ready for the real photos 📷</h4>
+      <p>Every tile above is a placeholder waiting for a photo. Send me your best shots (grouped by park/beach) and I'll drop them right in — or replace a placeholder in the code by swapping <code>&lt;div class="shot ph …"&gt;…&lt;/div&gt;</code> for <code>&lt;div class="shot big"&gt;&lt;img src="photos/your-pic.jpg" alt=""&gt;&lt;div class="cap"&gt;Caption&lt;/div&gt;&lt;/div&gt;</code>. Real photos open in a full-screen viewer automatically.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="heart">that's a wrap on Florida</div>
+  <h3>Until the next adventure ✈️</h3>
+  <p>Made with sunshine and a whole lot of love for the Wess girls' 2026 Florida trip.</p>
+  <div class="mini">Emblems are original illustrations created for this page and are not affiliated with, or endorsed by, Disney, Universal, or The Resort at Longboat Key Club.</div>
+</footer>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lb" id="lb">
+  <button class="x" aria-label="Close" onclick="closeLb()">✕</button>
+  <button class="nav-btn prev" aria-label="Previous" onclick="stepLb(-1)">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="nav-btn next" aria-label="Next" onclick="stepLb(1)">›</button>
+  <div class="cap" id="lbCap"></div>
+</div>
+
+<script>
+/* scroll reveal */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* close mobile nav on click */
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+
+/* lightbox — only for real photos */
+let album=[],idx=0;
+function collect(shot){
+  const gal=shot.closest('.gallery');
+  album=[...gal.querySelectorAll('.shot img')];
+  idx=album.indexOf(shot.querySelector('img'));
+}
+function openLb(){const img=album[idx];if(!img)return;
+  document.getElementById('lbImg').src=img.src;
+  const cap=img.closest('.shot').querySelector('.cap');
+  document.getElementById('lbCap').textContent=cap?cap.textContent:'';
+  document.getElementById('lb').classList.add('open');
+}
+function stepLb(d){idx=(idx+d+album.length)%album.length;openLb();}
+function closeLb(){document.getElementById('lb').classList.remove('open');}
+document.addEventListener('click',e=>{
+  const shot=e.target.closest('.shot');
+  if(shot&&shot.querySelector('img')){collect(shot);openLb();}
+});
+document.getElementById('lb').addEventListener('click',e=>{if(e.target.id==='lb')closeLb();});
+document.addEventListener('keydown',e=>{if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();if(e.key==='ArrowRight')stepLb(1);if(e.key==='ArrowLeft')stepLb(-1);});
+</script>
+</body>
+</html>
