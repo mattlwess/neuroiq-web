@@ -1,2 +1,23 @@
+# Equita site — landing at root, interactive demo at /demo
 [build]
   publish = "."
+
+# friendly alias for the demo
+[[redirects]]
+  from = "/app"
+  to = "/demo/"
+  status = 301
+
+# canonical host: send the apex/www consistently (adjust once DNS is live)
+[[redirects]]
+  from = "https://www.getequita.com/*"
+  to = "https://getequita.com/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

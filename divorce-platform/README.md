@@ -4,8 +4,17 @@
 > judicial authorization, neutral-controlled escrow, and a hash-chained audit trail —
 > all on one shared ledger that the court, both parties, and the neutral can see.
 
-This is a **self-contained interactive prototype** (`index.html`, no build step, no
-dependencies). Open the file in any browser or deploy the folder to any static host.
+Self-contained static site — no build step, no dependencies. Deploys to any static host.
+
+## Structure
+
+| Path | What it is |
+|------|-----------|
+| `index.html` | **Consumer landing page** (getequita.com front door) — hero, how-it-works, live fair-split calculator, waitlist |
+| `demo/index.html` | **Interactive app prototype** — the court-connected liquidation console (served at `/demo`) |
+| `SPEC.md` | Product, architecture & regulatory specification |
+| `favicon.svg`, `og-cover.png` | Brand + social-share assets |
+| `netlify.toml` | Deploy config (publish root, `/app`→`/demo` redirect, www→apex, security headers) |
 
 ---
 
@@ -41,26 +50,40 @@ court order  →  dual-consented sale  →  escrow  →  decree-driven split  �
 - **Hash-chained audit trail** — each record's hash is derived from the previous record's
   hash, making the log tamper-evident and court-exportable (JSON export included).
 
-## Run it
+## Run it locally
 
 ```bash
-# just open it
-open index.html            # macOS
-xdg-open index.html        # Linux
-
-# or serve the folder
-python3 -m http.server 8080
+python3 -m http.server 8080   # then open http://localhost:8080  (demo at /demo/)
 ```
 
-Deploys as-is to Netlify / Vercel / GitHub Pages (`netlify.toml` publishes the folder root).
+## Deploy to getequita.com (Netlify)
+
+The waitlist form posts to **Netlify Forms** (`data-netlify="true"`), so signups are
+captured automatically — no backend needed.
+
+1. **Create the site** on Netlify from this repo. Because the project lives in a
+   subfolder, set **Base directory = `divorce-platform`** and **Publish directory = `.`**
+   (or first extract it to its own repo — see below).
+2. **Add the domain:** Netlify → *Domain settings* → add `getequita.com` and `www.getequita.com`.
+3. **Point DNS at GoDaddy** (keep the domain registered at GoDaddy, just change records):
+   - **Apex** `getequita.com` → **A** record to Netlify's load balancer `75.2.60.5`
+     *(or use Netlify DNS / an `ALIAS`/`ANAME` if your DNS host supports it)*.
+   - **www** → **CNAME** to `<your-site>.netlify.app`.
+   - Point `getequita.net` at the same site (Netlify treats it as a domain alias / 301).
+4. Netlify auto-provisions HTTPS (Let's Encrypt) once DNS resolves.
+5. Waitlist emails appear under **Netlify → Forms → `waitlist`** (add a notification/webhook
+   to pipe them to email, a sheet, or your CRM).
+
+> Also fine on Vercel/Cloudflare Pages — but the Netlify Forms capture is Netlify-specific;
+> on other hosts swap the form action for Formspree or a serverless function.
 
 ## Extracting into its own repository
 
-This folder is intentionally standalone. To split it out:
+Recommended before production (keeps it off the NeuroIQ repo):
 
 ```bash
 git subtree split --prefix=divorce-platform -b equita-standalone
-# then push that branch to a new empty repo
+# then push that branch to a new empty repo and point Netlify at its root
 ```
 
 ## Roadmap to production (not built here)
