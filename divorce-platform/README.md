@@ -1,4 +1,4 @@
-# Decree — Court-Connected Asset Liquidation (Prototype)
+# Equita — Court-Connected Asset Liquidation (Prototype)
 
 > Liquidate marital assets with a **court-connected, traceable money flow**: dual-consent,
 > judicial authorization, neutral-controlled escrow, and a hash-chained audit trail —
@@ -23,7 +23,7 @@ each other:
 
 **Nobody owns the liquidation-execution layer** — turning the marital estate into cash and
 disbursing it against the decree, with all three stakeholders on one traceable ledger.
-That connective tissue is what Decree prototypes:
+That connective tissue is what Equita prototypes:
 
 ```
 court order  →  dual-consented sale  →  escrow  →  decree-driven split  →  immutable audit filed back to court
@@ -59,7 +59,7 @@ Deploys as-is to Netlify / Vercel / GitHub Pages (`netlify.toml` publishes the f
 This folder is intentionally standalone. To split it out:
 
 ```bash
-git subtree split --prefix=divorce-platform -b decree-standalone
+git subtree split --prefix=divorce-platform -b equita-standalone
 # then push that branch to a new empty repo
 ```
 
