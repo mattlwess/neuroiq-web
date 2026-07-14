@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decree — Court-Connected Asset Liquidation</title>
+<meta name="description" content="Decree liquidates marital assets with a court-connected, traceable money flow: dual-consent, judicial authorization, escrow, and a hash-chained audit trail on one shared ledger.">
+<style>
+:root {
+  --bg:        #0B0F17;
+  --bg-2:      #0F1420;
+  --panel:     #131A28;
+  --panel-2:   #172032;
+  --line:      rgba(255,255,255,0.08);
+  --line-2:    rgba(255,255,255,0.14);
+  --ink:       #E8EDF6;
+  --ink-dim:   #9AA7BD;
+  --ink-faint: #63708A;
+  --brand:     #4F7CFF;   /* trust blue */
+  --brand-d:   #2B4FBE;
+  --gold:      #E7B84B;   /* money */
+  --green:     #35C08A;   /* settled / verified */
+  --amber:     #E0A03A;   /* awaiting */
+  --violet:    #9A7BF0;   /* court */
+  --red:       #E5634D;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --radius: 14px;
+  --shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; }
+body {
+  font-family: var(--sans);
+  background:
+    radial-gradient(1200px 600px at 12% -10%, rgba(79,124,255,0.10), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(154,123,240,0.08), transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+.mono { font-family: var(--mono); }
+.dim { color: var(--ink-dim); }
+.faint { color: var(--ink-faint); }
+
+/* ---------- Layout ---------- */
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ---------- Header ---------- */
+header.top {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(14px);
+  background: rgba(11,15,23,0.82);
+  border-bottom: 1px solid var(--line);
+}
+.top-inner { max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.logo { display: flex; align-items: center; gap: 11px; }
+.logo .mark {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(145deg, var(--brand), var(--brand-d));
+  display: grid; place-items: center; font-weight: 800; color: #fff; font-size: 17px;
+  box-shadow: 0 4px 14px rgba(79,124,255,0.4);
+}
+.logo .name { font-size: 19px; font-weight: 700; letter-spacing: -0.3px; }
+.logo .name b { color: var(--brand); }
+.logo .tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-faint); margin-top: 1px; }
+.top-spacer { flex: 1; }
+
+/* role switcher */
+.roles { display: flex; gap: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 11px; padding: 4px; }
+.role-btn {
+  border: 0; background: transparent; color: var(--ink-dim);
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  padding: 7px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 7px;
+  transition: background .15s, color .15s;
+}
+.role-btn .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .8; }
+.role-btn:hover { color: var(--ink); }
+.role-btn.active { background: var(--panel-2); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.role-btn[data-role="petitioner"].active { color: #86a7ff; }
+.role-btn[data-role="respondent"].active { color: #7fe3c0; }
+.role-btn[data-role="court"].active     { color: #bda6ff; }
+.role-btn[data-role="neutral"].active    { color: var(--gold); }
+
+.btn {
+  border: 1px solid var(--line-2); background: var(--panel); color: var(--ink);
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  padding: 8px 14px; border-radius: 9px; cursor: pointer; transition: background .15s, border-color .15s, transform .1s;
+}
+.btn:hover { background: var(--panel-2); border-color: var(--line-2); }
+.btn:active { transform: translateY(1px); }
+.btn.ghost { background: transparent; }
+
+/* ---------- Case caption ---------- */
+.caption {
+  margin: 22px 0 6px; padding: 18px 22px;
+  background: linear-gradient(180deg, var(--panel), var(--bg-2));
+  border: 1px solid var(--line); border-radius: var(--radius);
+  display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-start;
+}
+.caption h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.4px; }
+.caption .sub { font-size: 12.5px; color: var(--ink-dim); margin-top: 3px; }
+.caption .court-badge {
+  margin-left: auto; text-align: right; font-size: 12px; color: var(--ink-dim);
+  border-left: 1px solid var(--line); padding-left: 22px;
+}
+.caption .court-badge b { color: var(--violet); display: block; font-size: 12.5px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 100px; letter-spacing: .3px;
+}
+.pill.live { background: rgba(53,192,138,0.14); color: var(--green); }
+.pill.live .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 1.6s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* ---------- Stat row ---------- */
+.stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: 18px 0 8px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.stat .k { font-size: 11px; letter-spacing: .5px; text-transform: uppercase; color: var(--ink-faint); }
+.stat .v { font-size: 26px; font-weight: 750; letter-spacing: -1px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.stat .v.gold { color: var(--gold); }
+.stat .v.green { color: var(--green); }
+.stat .v.blue { color: #86a7ff; }
+.stat .foot { font-size: 11.5px; color: var(--ink-dim); margin-top: 3px; }
+.bar { height: 6px; border-radius: 100px; background: rgba(255,255,255,0.08); margin-top: 10px; overflow: hidden; }
+.bar > i { display: block; height: 100%; border-radius: 100px; background: linear-gradient(90deg, var(--brand), var(--green)); transition: width .5s cubic-bezier(.2,1,.3,1); }
+
+/* ---------- Main grid ---------- */
+.grid { display: grid; grid-template-columns: 1fr 360px; gap: 20px; margin-top: 22px; align-items: start; }
+.col-side { position: sticky; top: 86px; display: flex; flex-direction: column; gap: 20px; }
+
+.section-h { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.section-h h2 { font-size: 14px; font-weight: 700; letter-spacing: .2px; }
+.section-h .count { font-size: 11px; color: var(--ink-faint); background: var(--panel); border: 1px solid var(--line); padding: 2px 8px; border-radius: 100px; }
+.section-h .hint { margin-left: auto; font-size: 11.5px; color: var(--ink-faint); }
+
+/* ---------- Asset cards ---------- */
+.assets { display: flex; flex-direction: column; gap: 12px; }
+.asset {
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px;
+  transition: border-color .2s, transform .15s;
+}
+.asset:hover { border-color: var(--line-2); }
+.asset.flash { animation: flash .9s ease; }
+@keyframes flash { 0%{ box-shadow: 0 0 0 0 rgba(79,124,255,.5);} 100%{ box-shadow: 0 0 0 14px rgba(79,124,255,0);} }
+.asset-top { display: flex; align-items: flex-start; gap: 14px; }
+.asset-ico {
+  width: 40px; height: 40px; border-radius: 10px; flex: none; display: grid; place-items: center; font-size: 19px;
+  background: var(--panel-2); border: 1px solid var(--line);
+}
+.asset-main { flex: 1; min-width: 0; }
+.asset-name { font-size: 15px; font-weight: 700; }
+.asset-meta { font-size: 12px; color: var(--ink-dim); margin-top: 2px; }
+.asset-val { text-align: right; flex: none; }
+.asset-val .amt { font-size: 17px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.asset-val .lbl { font-size: 10.5px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .5px; }
+
+/* status ladder */
+.ladder { display: flex; align-items: center; gap: 0; margin: 14px 0 4px; }
+.step { display: flex; align-items: center; flex: 1; }
+.step .node {
+  width: 22px; height: 22px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  font-size: 11px; font-weight: 700; border: 2px solid var(--line-2); color: var(--ink-faint); background: var(--bg-2);
+}
+.step .seg { height: 2px; flex: 1; background: var(--line); margin: 0 2px; }
+.step.done .node { background: var(--green); border-color: var(--green); color: #04140d; }
+.step.done .seg { background: var(--green); }
+.step.current .node { border-color: var(--brand); color: #86a7ff; box-shadow: 0 0 0 4px rgba(79,124,255,.15); }
+.ladder-labels { display: flex; margin-top: 6px; }
+.ladder-labels span { flex: 1; font-size: 9.5px; text-align: center; color: var(--ink-faint); letter-spacing: .2px; }
+.ladder-labels span:first-child { text-align: left; }
+.ladder-labels span:last-child { text-align: right; }
+.ladder-labels span.on { color: var(--ink-dim); }
+
+/* consent + action bar */
+.asset-foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.consents { display: flex; gap: 7px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600;
+  padding: 4px 9px; border-radius: 100px; border: 1px solid var(--line); color: var(--ink-faint); background: var(--bg-2);
+}
+.chip .tick { width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; font-size: 9px; background: rgba(255,255,255,.06); }
+.chip.yes { color: var(--green); border-color: rgba(53,192,138,.35); background: rgba(53,192,138,.10); }
+.chip.yes .tick { background: var(--green); color: #04140d; }
+.chip.court.yes { color: var(--violet); border-color: rgba(154,123,240,.4); background: rgba(154,123,240,.12); }
+.chip.court.yes .tick { background: var(--violet); color: #120a24; }
+.action-slot { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.status-tag { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; letter-spacing: .3px; }
+.status-tag.done { background: rgba(53,192,138,.14); color: var(--green); }
+.status-tag.wait { background: rgba(224,160,58,.14); color: var(--amber); }
+.act {
+  border: 0; font-family: var(--sans); font-weight: 700; font-size: 12.5px;
+  padding: 9px 16px; border-radius: 9px; cursor: pointer; color: #fff;
+  background: linear-gradient(145deg, var(--brand), var(--brand-d));
+  box-shadow: 0 4px 14px rgba(79,124,255,.3); transition: transform .1s, filter .15s;
+}
+.act:hover { filter: brightness(1.08); }
+.act:active { transform: translateY(1px); }
+.act.court { background: linear-gradient(145deg, var(--violet), #6b4fd0); box-shadow: 0 4px 14px rgba(154,123,240,.3); }
+.act.gold { background: linear-gradient(145deg, var(--gold), #c9922f); color: #1c1403; box-shadow: 0 4px 14px rgba(231,184,75,.28); }
+.await-note { font-size: 11.5px; color: var(--ink-faint); font-style: italic; }
+
+/* ---------- Side panels ---------- */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.panel-h { padding: 14px 18px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+.panel-h h3 { font-size: 13px; font-weight: 700; }
+.panel-h .r { margin-left: auto; font-size: 11px; color: var(--ink-faint); }
+.panel-body { padding: 16px 18px; }
+
+/* escrow */
+.escrow-bal { text-align: center; padding: 8px 0 14px; border-bottom: 1px dashed var(--line); margin-bottom: 12px; }
+.escrow-bal .n { font-size: 34px; font-weight: 800; color: var(--gold); letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
+.escrow-bal .l { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-faint); }
+.ledger { display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow-y: auto; }
+.led-row { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid var(--line); font-size: 12.5px; }
+.led-row:last-child { border-bottom: 0; }
+.led-ico { width: 26px; height: 26px; border-radius: 7px; flex: none; display: grid; place-items: center; font-size: 12px; }
+.led-ico.in { background: rgba(53,192,138,.14); color: var(--green); }
+.led-ico.out { background: rgba(229,99,77,.14); color: var(--red); }
+.led-txt { flex: 1; min-width: 0; }
+.led-txt .t { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.led-txt .s { font-size: 10.5px; color: var(--ink-faint); }
+.led-amt { font-weight: 700; font-variant-numeric: tabular-nums; }
+.led-amt.in { color: var(--green); }
+.led-amt.out { color: var(--red); }
+.empty { text-align: center; color: var(--ink-faint); font-size: 12px; padding: 18px 0; }
+
+/* decree split */
+.split-row { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; padding: 7px 0; }
+.split-bar { height: 26px; border-radius: 8px; overflow: hidden; display: flex; margin: 6px 0 12px; border: 1px solid var(--line); }
+.split-bar .a { background: linear-gradient(90deg,#4f7cff,#6b8dff); display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #fff; }
+.split-bar .b { background: linear-gradient(90deg,#2aa377,#35c08a); display: grid; place-items: center; font-size: 11px; font-weight: 800; color: #04140d; }
+.carve { font-size: 11.5px; color: var(--ink-dim); display: flex; justify-content: space-between; padding: 4px 0; border-top: 1px dashed var(--line); }
+.disburse-btn {
+  width: 100%; margin-top: 14px; border: 0; padding: 12px; border-radius: 10px; cursor: pointer;
+  font-family: var(--sans); font-weight: 800; font-size: 13.5px; color: #1c1403;
+  background: linear-gradient(145deg, var(--gold), #c9922f); box-shadow: 0 6px 18px rgba(231,184,75,.3);
+}
+.disburse-btn:disabled { background: var(--panel-2); color: var(--ink-faint); box-shadow: none; cursor: not-allowed; }
+
+/* ---------- Audit trail ---------- */
+.audit { margin-top: 30px; }
+.audit-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.audit-table th { text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--ink-faint); padding: 8px 12px; border-bottom: 1px solid var(--line); font-weight: 600; }
+.audit-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.audit-table tr:hover td { background: rgba(255,255,255,.02); }
+.seq { font-family: var(--mono); color: var(--ink-faint); }
+.actor-b { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; }
+.actor-b .d { width: 8px; height: 8px; border-radius: 50%; }
+.hashcell { font-family: var(--mono); font-size: 11px; }
+.hashcell .link { color: var(--ink-faint); }
+.hashcell .h { color: var(--green); }
+.verified-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 12.5px; color: var(--green); }
+.verified-row .badge { background: rgba(53,192,138,.14); border: 1px solid rgba(53,192,138,.3); padding: 3px 10px; border-radius: 100px; font-weight: 700; }
+
+/* toast */
+#toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; z-index: 100;
+  background: var(--panel-2); border: 1px solid var(--line-2); box-shadow: var(--shadow);
+  padding: 12px 18px; border-radius: 11px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+  transition: opacity .25s, transform .25s; pointer-events: none; max-width: 90vw; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#toast .tico { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: #04140d; font-size: 12px; }
+
+/* disclaimer */
+.disc { margin-top: 34px; padding: 16px 20px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--bg-2); font-size: 12px; color: var(--ink-dim); display: flex; gap: 12px; }
+.disc .i { font-size: 18px; }
+.disc b { color: var(--ink); }
+
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: 1fr; }
+  .col-side { position: static; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .stats { grid-template-columns: 1fr; }
+  .caption .court-badge { margin-left: 0; border-left: 0; padding-left: 0; text-align: left; }
+  .audit-wrap { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="logo">
+      <div class="mark">D</div>
+      <div>
+        <div class="name">De<b>cree</b></div>
+        <div class="tag">Court-Connected Liquidation</div>
+      </div>
+    </div>
+    <div class="top-spacer"></div>
+    <div>
+      <div style="font-size:11px; color:var(--ink-faint); text-align:right; margin-bottom:4px;">Acting as</div>
+      <div class="roles" id="roles">
+        <button class="role-btn active" data-role="petitioner"><span class="dot"></span>Petitioner</button>
+        <button class="role-btn" data-role="respondent"><span class="dot"></span>Respondent</button>
+        <button class="role-btn" data-role="court"><span class="dot"></span>Court</button>
+        <button class="role-btn" data-role="neutral"><span class="dot"></span>Neutral</button>
+      </div>
+    </div>
+    <button class="btn ghost" id="exportBtn">⇩ Export audit trail</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="caption">
+    <div>
+      <h1>In re the Marriage of Rivera</h1>
+      <div class="sub">Petitioner <b style="color:#86a7ff">Maya Rivera</b> &nbsp;·&nbsp; Respondent <b style="color:#7fe3c0">Daniel Rivera</b> &nbsp;·&nbsp; Neutral: J. Alvarez, CFL&#8209;certified</div>
+      <div style="margin-top:10px"><span class="pill live"><span class="dot"></span>LIVE LEDGER</span> <span class="faint" style="font-size:12px; margin-left:8px">Every action below is co-signed and written to an append-only, court-exportable record.</span></div>
+    </div>
+    <div class="court-badge">
+      <b>Superior Court of California</b>
+      County of Santa Clara<br>
+      Case No. FL-2026-04817<br>
+      Hon. A. Okafor, presiding
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="grid">
+    <div class="col-main">
+      <div class="section-h">
+        <h2>Asset liquidation pipeline</h2>
+        <span class="count" id="assetCount"></span>
+        <span class="hint" id="roleHint"></span>
+      </div>
+      <div class="assets" id="assets"></div>
+    </div>
+
+    <div class="col-side">
+      <div class="panel">
+        <div class="panel-h">
+          <h3>⛓ Escrow account</h3>
+          <span class="r">Neutral-controlled · FBO both parties</span>
+        </div>
+        <div class="panel-body">
+          <div class="escrow-bal">
+            <div class="n" id="escrowBal">$0</div>
+            <div class="l">Held in trust</div>
+          </div>
+          <div class="ledger" id="ledger"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-h"><h3>⚖ Decree distribution</h3></div>
+        <div class="panel-body">
+          <div class="split-bar">
+            <div class="a" id="splitA">55%</div>
+            <div class="b" id="splitB">45%</div>
+          </div>
+          <div class="split-row"><span>Petitioner (Maya)</span><b id="shareA">—</b></div>
+          <div class="split-row"><span>Respondent (Daniel)</span><b id="shareB">—</b></div>
+          <div class="carve"><span>Carve-out · §4.2 reimbursement → Maya</span><span class="mono">$18,000</span></div>
+          <div class="carve"><span>Carve-out · neutral &amp; escrow fee</span><span class="mono">$3,500</span></div>
+          <button class="disburse-btn" id="disburseBtn" disabled>Disburse escrow per decree</button>
+          <div class="faint" style="font-size:11px; margin-top:8px; text-align:center" id="disburseNote">Available once cleared proceeds are in escrow.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="audit">
+    <div class="section-h">
+      <h2>Traceable audit trail</h2>
+      <span class="count" id="auditCount"></span>
+      <span class="hint">Hash-chained · tamper-evident · e-filable to court</span>
+    </div>
+    <div class="verified-row">
+      <span class="badge">✓ CHAIN VERIFIED</span>
+      <span id="chainNote" class="dim">Each record's hash is computed over the prior record — any edit breaks the chain.</span>
+    </div>
+    <div class="audit-wrap">
+      <table class="audit-table">
+        <thead>
+          <tr><th>#</th><th>Time</th><th>Actor</th><th>Action</th><th>Asset</th><th>Amount</th><th>prev → hash</th></tr>
+        </thead>
+        <tbody id="auditBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="disc">
+    <div class="i">ⓘ</div>
+    <div><b>Prototype / demonstration only.</b> This is a functional UI concept with mock data — not a live financial or legal system. A production build requires money-transmitter / escrow licensing, KYC-AML, integration with court e-filing standards (e.g. Tyler Odyssey / ECF), and counsel sign-off. Nothing here constitutes legal or financial advice.</div>
+  </div>
+
+</div>
+
+<div id="toast"><span class="tico">✓</span><span id="toastMsg"></span></div>
+
+<script>
+"use strict";
+
+/* ---------------- Model ---------------- */
+// Deterministic short hash (djb2 → hex) for the tamper-evident chain demo.
+function shortHash(str){
+  let h = 5381;
+  for (let i=0;i<str.length;i++){ h = ((h<<5)+h) ^ str.charCodeAt(i); h = h >>> 0; }
+  let h2 = 52711;
+  for (let i=str.length-1;i>=0;i--){ h2 = ((h2<<5)+h2) ^ str.charCodeAt(i); h2 = h2 >>> 0; }
+  return (h.toString(16).padStart(8,'0') + h2.toString(16).padStart(8,'0')).slice(0,12);
+}
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+
+const ROLES = {
+  petitioner: { label:'Maya Rivera',  short:'Petitioner', color:'#86a7ff' },
+  respondent: { label:'Daniel Rivera',short:'Respondent', color:'#7fe3c0' },
+  court:      { label:'Hon. A. Okafor',short:'Court',     color:'#bda6ff' },
+  neutral:    { label:'J. Alvarez',   short:'Neutral',    color:'#E7B84B' },
+};
+
+// Pipeline stages
+const STAGES = ['proposed','consented','authorized','listed','sold','disbursed'];
+const STAGE_LABEL = { proposed:'Proposed', consented:'Co-signed', authorized:'Court order', listed:'On market', sold:'Sold', disbursed:'Disbursed' };
+
+const DECREE = { a:0.55, b:0.45, carveMayaReimburse:18000, carveFee:3500 };
+
+// Initial assets (all start "proposed"); seed events below drive them to a mid-flight state.
+function initialAssets(){
+  return [
+    { id:'home',  name:'Marital residence — 1420 Juniper Ln', type:'Real property', channel:'Brokered sale (licensed agent)', ico:'🏠', value:510000, note:'Net equity after $410k mortgage payoff' },
+    { id:'tsla',  name:'2023 Tesla Model Y',                  type:'Vehicle',      channel:'Certified marketplace',        ico:'🚗', value:38000,  note:'Title held by neutral pending sale' },
+    { id:'fidel', name:'Fidelity brokerage ····7788',         type:'Securities',   channel:'Broker liquidation',           ico:'📈', value:146000, note:'Marketable securities, same-day settle' },
+    { id:'btc',   name:'Bitcoin — 0.90 BTC',                  type:'Digital asset',channel:'Regulated exchange',           ico:'₿',  value:61000,  note:'Multi-sig cold wallet, 2-of-3 release' },
+    { id:'art',   name:'Coin & fine-art collection',          type:'Chattel',      channel:'Auction house',                ico:'🖼️', value:24000,  note:'Appraised; reserve set by stipulation' },
+  ];
+}
+
+// Seed event log — replayed at load to build a realistic in-progress board.
+const SEED = [
+  { role:'petitioner', action:'consent', asset:'home', t:'Jun 28 · 09:14' },
+  { role:'respondent', action:'consent', asset:'home', t:'Jun 28 · 16:02' },
+  { role:'petitioner', action:'consent', asset:'tsla', t:'Jun 29 · 10:41' },
+  { role:'respondent', action:'consent', asset:'tsla', t:'Jun 29 · 11:15' },
+  { role:'court',      action:'authorize', asset:'tsla', t:'Jul 01 · 14:30' },
+  { role:'neutral',    action:'list',    asset:'tsla', t:'Jul 02 · 08:00' },
+  { role:'neutral',    action:'sell',    asset:'tsla', amount:36500, t:'Jul 08 · 13:22' },
+  { role:'petitioner', action:'consent', asset:'fidel', t:'Jul 03 · 09:00' },
+  { role:'respondent', action:'consent', asset:'fidel', t:'Jul 03 · 09:47' },
+  { role:'court',      action:'authorize', asset:'fidel', t:'Jul 09 · 15:10' },
+  { role:'petitioner', action:'consent', asset:'btc', t:'Jul 11 · 18:33' },
+];
+
+const ACTIONS = {
+  consent:   { verb:'Consented to liquidation' },
+  authorize: { verb:'Authorized sale (court order)' },
+  list:      { verb:'Listed on channel' },
+  sell:      { verb:'Recorded sale — proceeds to escrow' },
+  disburse:  { verb:'Disbursed per decree' },
+};
+
+let state;
+function fresh(){
+  return {
+    role: 'petitioner',
+    assets: initialAssets().map(a => ({ ...a, status:'proposed', consents:{petitioner:false,respondent:false,court:false}, proceeds:null })),
+    escrow: 0,
+    ledger: [],
+    audit: [],
+    disbursed: false,
+  };
+}
+
+/* ---------------- Reducer ---------------- */
+function apply(ev, isSeed){
+  const a = state.assets.find(x => x.id === ev.asset);
+  const time = ev.t || nowLabel();
+  let amount = null, assetName = a ? a.name.split(' — ')[0] : '—';
+
+  if (ev.action === 'consent'){
+    a.consents[ev.role] = true;
+    if (a.consents.petitioner && a.consents.respondent && a.status === 'proposed') a.status = 'consented';
+  } else if (ev.action === 'authorize'){
+    a.consents.court = true; a.status = 'authorized';
+  } else if (ev.action === 'list'){
+    a.status = 'listed';
+  } else if (ev.action === 'sell'){
+    a.status = 'sold'; a.proceeds = ev.amount; amount = ev.amount;
+    state.escrow += ev.amount;
+    state.ledger.push({ dir:'in', label:'Sale — '+assetName, sub:a.channel, amount:ev.amount, t:time });
+  } else if (ev.action === 'disburse'){
+    amount = ev.amount;
+  }
+
+  // Append to hash chain
+  const prev = state.audit.length ? state.audit[state.audit.length-1].hash : '000000000000';
+  const seq = state.audit.length + 1;
+  const payload = JSON.stringify({ seq, role:ev.role, action:ev.action, asset:ev.asset||null, amount, time });
+  const hash = shortHash(prev + payload);
+  state.audit.push({ seq, role:ev.role, action:ev.action, verb: ACTIONS[ev.action].verb, asset:assetName, amount, t:time, prev, hash });
+}
+
+function nowLabel(){
+  const d = new Date();
+  const mon = d.toLocaleString('en-US',{month:'short'});
+  const day = String(d.getDate()).padStart(2,'0');
+  const hh = String(d.getHours()).padStart(2,'0');
+  const mm = String(d.getMinutes()).padStart(2,'0');
+  return `${mon} ${day} · ${hh}:${mm}`;
+}
+
+/* ---------------- Action resolution ---------------- */
+// What single next action does this asset need, and who may perform it?
+function pending(a){
+  if (a.status === 'proposed'){
+    if (!a.consents.petitioner) return { action:'consent', role:'petitioner', desc:'Awaiting petitioner consent' };
+    if (!a.consents.respondent) return { action:'consent', role:'respondent', desc:'Awaiting respondent consent' };
+  }
+  if (a.status === 'consented') return { action:'authorize', role:'court', desc:'Awaiting court authorization' };
+  if (a.status === 'authorized') return { action:'list', role:'neutral', desc:'Awaiting neutral to list' };
+  if (a.status === 'listed') return { action:'sell', role:'neutral', desc:'On market — neutral records sale' };
+  return null; // sold / disbursed
+}
+
+const ACT_LABEL = {
+  consent:'Co-sign consent',
+  authorize:'Sign court order',
+  list:'List on channel',
+  sell:'Record sale',
+};
+
+/* ---------------- Render ---------------- */
+function render(flashId){
+  renderStats();
+  renderAssets(flashId);
+  renderEscrow();
+  renderDecree();
+  renderAudit();
+}
+
+function renderStats(){
+  const totalEst = state.assets.reduce((s,a)=>s+a.value,0);
+  const realized = state.assets.filter(a=>a.status==='sold'||a.status==='disbursed').reduce((s,a)=>s+(a.proceeds||0),0);
+  const disbursedOut = state.ledger.filter(l=>l.dir==='out').reduce((s,l)=>s+l.amount,0);
+  const done = state.assets.filter(a=>a.status==='disbursed'||a.status==='sold').length;
+  const pct = Math.round(done/state.assets.length*100);
+  const el = document.getElementById('stats');
+  el.innerHTML = `
+    <div class="stat"><div class="k">Marital estate</div><div class="v">${money(totalEst)}</div><div class="foot">${state.assets.length} assets under management</div></div>
+    <div class="stat"><div class="k">Realized proceeds</div><div class="v gold">${money(realized)}</div><div class="foot">Cleared into escrow</div></div>
+    <div class="stat"><div class="k">In escrow now</div><div class="v gold">${money(state.escrow)}</div><div class="foot">Held FBO both parties</div></div>
+    <div class="stat"><div class="k">Disbursed</div><div class="v green">${money(disbursedOut)}</div><div class="foot">Paid out per decree</div></div>
+    <div class="stat"><div class="k">Pipeline complete</div><div class="v blue">${pct}%</div><div class="bar"><i style="width:${pct}%"></i></div></div>
+  `;
+}
+
+function renderAssets(flashId){
+  const wrap = document.getElementById('assets');
+  document.getElementById('assetCount').textContent = state.assets.length + ' assets';
+  const r = state.role;
+  document.getElementById('roleHint').innerHTML = 'Viewing as <b style="color:'+ROLES[r].color+'">'+ROLES[r].short+'</b> — you can act where it\'s your move.';
+  wrap.innerHTML = state.assets.map(a => assetCard(a, flashId)).join('');
+  // wire buttons
+  wrap.querySelectorAll('[data-act]').forEach(btn=>{
+    btn.addEventListener('click', ()=> onAction(btn.dataset.asset, btn.dataset.act, btn.dataset.role));
+  });
+}
+
+function ladder(a){
+  const idx = STAGES.indexOf(a.status);
+  return `<div class="ladder">` + STAGES.map((s,i)=>{
+    const cls = i < idx ? 'done' : (i === idx ? 'current' : '');
+    const inner = i < idx ? '✓' : (i+1);
+    const seg = i < STAGES.length-1 ? '<div class="seg"></div>' : '';
+    return `<div class="step ${cls}"><div class="node">${inner}</div>${seg}</div>`;
+  }).join('') + `</div>
+  <div class="ladder-labels">` + STAGES.map((s,i)=>`<span class="${i<=idx?'on':''}">${STAGE_LABEL[s]}</span>`).join('') + `</div>`;
+}
+
+function consentChips(a){
+  const c = (key,label,cls)=>{
+    const yes = a.consents[key];
+    return `<span class="chip ${cls} ${yes?'yes':''}"><span class="tick">${yes?'✓':''}</span>${label}</span>`;
+  };
+  return `<div class="consents">
+    ${c('petitioner','Petitioner','')}
+    ${c('respondent','Respondent','')}
+    ${c('court','Court','court')}
+  </div>`;
+}
+
+function assetCard(a, flashId){
+  const p = pending(a);
+  let slot;
+  if (a.status === 'disbursed'){
+    slot = `<span class="status-tag done">✓ Disbursed</span>`;
+  } else if (a.status === 'sold'){
+    slot = `<span class="status-tag done">✓ ${money(a.proceeds)} in escrow</span>`;
+  } else if (p){
+    if (p.role === state.role){
+      const cls = p.action==='authorize' ? 'court' : (p.action==='sell' ? 'gold' : '');
+      const label = p.action==='sell' ? 'Record sale ▸' : ACT_LABEL[p.action];
+      slot = `<button class="act ${cls}" data-act="${p.action}" data-asset="${a.id}" data-role="${p.role}">${label}</button>`;
+    } else {
+      slot = `<span class="await-note">${p.desc} · <b style="color:${ROLES[p.role].color}">${ROLES[p.role].short}</b></span>`;
+    }
+  }
+  return `<div class="asset ${flashId===a.id?'flash':''}">
+    <div class="asset-top">
+      <div class="asset-ico">${a.ico}</div>
+      <div class="asset-main">
+        <div class="asset-name">${a.name}</div>
+        <div class="asset-meta">${a.type} · ${a.channel}</div>
+        <div class="asset-meta faint" style="margin-top:2px">${a.note}</div>
+      </div>
+      <div class="asset-val"><div class="amt">${money(a.proceeds!=null?a.proceeds:a.value)}</div><div class="lbl">${a.proceeds!=null?'sold for':'est. value'}</div></div>
+    </div>
+    ${ladder(a)}
+    <div class="asset-foot">
+      ${consentChips(a)}
+      <div class="action-slot">${slot||''}</div>
+    </div>
+  </div>`;
+}
+
+function renderEscrow(){
+  document.getElementById('escrowBal').textContent = money(state.escrow);
+  const l = document.getElementById('ledger');
+  if (!state.ledger.length){ l.innerHTML = '<div class="empty">No movements yet.</div>'; return; }
+  l.innerHTML = state.ledger.slice().reverse().map(e=>`
+    <div class="led-row">
+      <div class="led-ico ${e.dir}">${e.dir==='in'?'▼':'▲'}</div>
+      <div class="led-txt"><div class="t">${e.label}</div><div class="s">${e.sub} · ${e.t}</div></div>
+      <div class="led-amt ${e.dir}">${e.dir==='in'?'+':'−'}${money(e.amount)}</div>
+    </div>`).join('');
+}
+
+function renderDecree(){
+  document.getElementById('splitA').textContent = Math.round(DECREE.a*100)+'%';
+  document.getElementById('splitB').textContent = Math.round(DECREE.b*100)+'%';
+  // projected shares from current escrow
+  const distributable = Math.max(0, state.escrow - DECREE.carveMayaReimburse - DECREE.carveFee);
+  const shareA = state.escrow>0 ? DECREE.carveMayaReimburse + distributable*DECREE.a : 0;
+  const shareB = state.escrow>0 ? distributable*DECREE.b : 0;
+  document.getElementById('shareA').textContent = state.escrow>0 ? money(shareA) : '—';
+  document.getElementById('shareB').textContent = state.escrow>0 ? money(shareB) : '—';
+  const btn = document.getElementById('disburseBtn');
+  const canDisburse = state.escrow > 0 && state.role === 'neutral';
+  btn.disabled = !canDisburse;
+  const note = document.getElementById('disburseNote');
+  if (state.escrow <= 0) note.textContent = 'Available once cleared proceeds are in escrow.';
+  else if (state.role !== 'neutral') note.innerHTML = 'Only the <b style="color:var(--gold)">Neutral</b> may execute disbursement.';
+  else note.textContent = 'Ready — splits computed from the decree.';
+}
+
+function renderAudit(){
+  document.getElementById('auditCount').textContent = state.audit.length + ' records';
+  const b = document.getElementById('auditBody');
+  b.innerHTML = state.audit.slice().reverse().map(r=>{
+    const role = ROLES[r.role];
+    return `<tr>
+      <td class="seq">${String(r.seq).padStart(3,'0')}</td>
+      <td class="dim">${r.t}</td>
+      <td><span class="actor-b"><span class="d" style="background:${role.color}"></span>${role.label}<span class="faint" style="font-weight:400"> · ${role.short}</span></span></td>
+      <td>${r.verb}</td>
+      <td class="dim">${r.asset}</td>
+      <td class="mono">${r.amount!=null?money(r.amount):'—'}</td>
+      <td class="hashcell"><span class="link">${r.prev}</span> → <span class="h">${r.hash}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* ---------------- Interactions ---------------- */
+function onAction(assetId, action, role){
+  // Guard: the acting role must match current role
+  if (role !== state.role){ toast('Switch to the '+ROLES[role].short+' role to take this action.'); return; }
+  const a = state.assets.find(x=>x.id===assetId);
+
+  if (action === 'sell'){
+    const est = a.value;
+    const input = prompt(`Record sale of "${a.name.split(' — ')[0]}"\n\nEnter final sale proceeds (net):`, String(est));
+    if (input === null) return;
+    const amt = Math.round(Number(String(input).replace(/[^0-9.]/g,'')));
+    if (!amt || amt <= 0){ toast('Enter a valid amount.'); return; }
+    apply({ role, action:'sell', asset:assetId, amount:amt });
+    toast(money(amt)+' recorded → escrow.');
+  } else {
+    apply({ role, action, asset:assetId });
+    const msgs = { consent:'Consent co-signed to the ledger.', authorize:'Court order written to the record.', list:'Asset listed on channel.' };
+    toast(msgs[action] || 'Recorded.');
+  }
+  render(assetId);
+}
+
+function onDisburse(){
+  if (state.role !== 'neutral'){ toast('Only the Neutral may disburse.'); return; }
+  if (state.escrow <= 0) return;
+  const pool = state.escrow;
+  const distributable = Math.max(0, pool - DECREE.carveMayaReimburse - DECREE.carveFee);
+  const shareA = DECREE.carveMayaReimburse + distributable*DECREE.a;
+  const shareB = distributable*DECREE.b;
+
+  // fee out
+  state.ledger.push({ dir:'out', label:'Neutral & escrow fee', sub:'Decree §5.1', amount:DECREE.carveFee, t:nowLabel() });
+  state.ledger.push({ dir:'out', label:'Disbursement → Maya (Petitioner)', sub:'§4.2 reimbursement + '+Math.round(DECREE.a*100)+'% share', amount:Math.round(shareA), t:nowLabel() });
+  state.ledger.push({ dir:'out', label:'Disbursement → Daniel (Respondent)', sub:Math.round(DECREE.b*100)+'% share', amount:Math.round(shareB), t:nowLabel() });
+  state.escrow = 0;
+  state.assets.forEach(a=>{ if (a.status==='sold') a.status='disbursed'; });
+  apply({ role:'neutral', action:'disburse', asset:null, amount:Math.round(pool) });
+  toast(money(pool)+' disbursed per decree.');
+  render();
+}
+
+function setRole(r){
+  state.role = r;
+  document.querySelectorAll('.role-btn').forEach(b=> b.classList.toggle('active', b.dataset.role===r));
+  render();
+}
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=> t.classList.remove('show'), 2600);
+}
+
+function exportAudit(){
+  const rows = state.audit.map(r=>({
+    seq:r.seq, time:r.t, actor:ROLES[r.role].label, role:ROLES[r.role].short,
+    action:r.verb, asset:r.asset, amount:r.amount, prev_hash:r.prev, hash:r.hash
+  }));
+  const doc = {
+    case:'FL-2026-04817', caption:'In re the Marriage of Rivera',
+    court:'Superior Court of California, County of Santa Clara',
+    generated: nowLabel(), record_count: rows.length, chain_algorithm:'demo-djb2-128',
+    records: rows
+  };
+  const blob = new Blob([JSON.stringify(doc,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url; link.download = 'rivera-audit-trail.json'; link.click();
+  URL.revokeObjectURL(url);
+  toast('Audit trail exported (court-ready JSON).');
+}
+
+/* ---------------- Boot ---------------- */
+function boot(){
+  state = fresh();
+  SEED.forEach(ev => apply(ev, true));
+  document.getElementById('roles').addEventListener('click', e=>{
+    const b = e.target.closest('.role-btn'); if (b) setRole(b.dataset.role);
+  });
+  document.getElementById('disburseBtn').addEventListener('click', onDisburse);
+  document.getElementById('exportBtn').addEventListener('click', exportAudit);
+  render();
+}
+boot();
+</script>
+</body>
+</html>
