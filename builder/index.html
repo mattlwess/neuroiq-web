@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RailForge — AR Build Configurator</title>
+<meta name="description" content="Build a complete AR-pattern rifle from parts across 85 manufacturers. Every selection filters the catalog down to only the parts that physically fit — matching thread pitch, gas system, caliber and buffer spec — with a live 3D preview and a lightest-build optimizer.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23378add'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='700'%3ER%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<!-- three.js is vendored locally (see /builder/vendor) so the 3D preview has no
+     external CDN dependency and works offline. -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">R</div>
+    <div>
+      <div class="brand-name">Rail<span>Forge</span></div>
+      <div class="brand-tag">AR Fitment Engine</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="stat-parts">0</b><span>Parts indexed</span></div>
+    <div class="stat"><b id="stat-mfg">0</b><span>Manufacturers</span></div>
+    <div class="stat"><b id="stat-cats">0</b><span>Build slots</span></div>
+  </div>
+</header>
+
+<main class="workspace">
+  <!-- LEFT: category list -->
+  <div class="col col-left">
+    <div class="card">
+      <div id="cat-list"></div>
+    </div>
+  </div>
+
+  <!-- CENTER: 3D preview + parts -->
+  <div class="col col-center">
+    <div class="card scene-card">
+      <div id="scene"></div>
+      <div class="scene-overlay">
+        <h1>Your rifle, live</h1>
+        <p>Parts snap in as you pick them. Drag to orbit; ghosted sections are still empty.</p>
+      </div>
+      <div class="banner" id="banner"></div>
+      <div class="scene-hint">Auto-rotating — drag to inspect</div>
+      <div class="scene-tools">
+        <button class="mini-btn" id="reset-view">Reset view</button>
+      </div>
+    </div>
+
+    <div class="card parts-card">
+      <div class="panel-head">
+        <div>
+          <div id="panel-title">Barrel</div>
+        </div>
+        <div id="panel-sub"></div>
+      </div>
+      <div class="toolbar">
+        <input id="search" type="text" placeholder="Search this category…" autocomplete="off">
+        <select id="sort">
+          <option value="compat">Sort: Best value</option>
+          <option value="weight-asc">Sort: Lightest first</option>
+          <option value="price-asc">Sort: Cheapest first</option>
+          <option value="price-desc">Sort: Priciest first</option>
+        </select>
+        <button class="toggle" id="toggle-incompat">Show non-fitting</button>
+      </div>
+      <div class="parts-grid" id="parts-grid"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: summary + optimizer -->
+  <div class="col col-right">
+    <div class="card">
+      <div class="sum-title">Build sheet</div>
+      <div class="sum-sub">Compatibility-locked. Conflicting parts are dropped automatically.</div>
+      <div class="progress"><div id="build-progress"></div></div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="k">Slots filled</div>
+          <div class="v" id="sum-count">0 / 25</div>
+        </div>
+        <div class="metric">
+          <div class="k">Weight</div>
+          <div class="v" id="sum-weight">0 g</div>
+        </div>
+        <div class="metric price wide">
+          <div class="k">Est. parts cost</div>
+          <div class="v" id="sum-price">$0</div>
+        </div>
+        <div class="metric wide">
+          <div class="k">Assembled weight</div>
+          <div class="v"><span id="sum-weight-lb">0.00 lb</span></div>
+        </div>
+      </div>
+
+      <div class="digest" id="spec-digest"></div>
+
+      <div class="opt-title">Auto-build</div>
+      <button class="opt-btn" id="opt-weight">
+        <span class="ico">🪶</span>
+        <span><b>Lightest possible AR</b><small>Minimises total weight across compatible parts</small></span>
+      </button>
+      <button class="opt-btn" id="opt-price">
+        <span class="ico">💵</span>
+        <span><b>Cheapest possible AR</b><small>Minimises parts cost across compatible parts</small></span>
+      </button>
+      <button class="ghost-btn" id="clear">Clear build</button>
+
+      <div class="complete-flag" id="complete-flag">
+        <span>✓</span><span>Complete, fully-compatible rifle — every interface matches.</span>
+      </div>
+
+      <p class="disclaimer">
+        Educational fitment demo. Catalog data is synthetically generated to model
+        real AR-platform interfaces (thread pitch, gas length, bolt face, buffer spec).
+        Verify all fitment and follow applicable laws before assembling a real firearm.
+      </p>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
